@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="key — CLI secret manager for macOS. Each secret its own encrypted file on your disk, backed up however you want. The vault key in your Keychain, released by Touch ID, Apple Watch, or your system password."
+    />
+    <meta name="theme-color" content="#05070c" />
+    <title>key — macOS secret manager</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+    <header class="nav">
+      <a class="brand" href="#">
+        <span class="brand-icon" aria-hidden="true">
+          <img
+            src="assets/app-icon.png"
+            alt=""
+            width="36"
+            height="36"
+            decoding="async"
+          />
+        </span>
+        <span class="brand-name">key</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#how">The Difference</a>
+        <a href="#cli">Install</a>
+        <a href="https://github.com/tvanreenen/key" rel="noopener">GitHub</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="top">
+        <div class="hero-bg">
+          <img src="assets/hero.png" alt="" class="hero-bg-img" width="1920" height="1080" decoding="async" />
+          <div class="hero-bg-scrim"></div>
+        </div>
+        <div class="hero-inner">
+          <p class="eyebrow">Secret Manager · macOS · CLI · Open Source</p>
+          <h1 class="hero-title">
+            Secrets you control.<br />
+            <span class="hero-title-accent">Native macOS Security.</span>
+          </h1>
+          <p class="hero-lead">
+            <code>key</code> is a CLI secret manager — each secret stored as its own encrypted file on your disk, named, organized, and backed up however you want. The vault key lives in your Keychain, released through macOS user presence authentication — Apple&nbsp;Watch, Touch&nbsp;ID, or your system password.
+          </p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="https://github.com/tvanreenen/key" rel="noopener">View on GitHub</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="demo-section" id="demo">
+        <div class="demo-stage">
+          <div class="demo-desktop">
+            <div class="demo-terminal-stack">
+              <div class="terminal-window" data-terminal>
+                <div class="terminal-chrome">
+                  <span class="dot dot-red"></span>
+                  <span class="dot dot-yellow"></span>
+                  <span class="dot dot-green"></span>
+                  <span class="terminal-title">Terminal</span>
+                </div>
+                <div class="terminal-body">
+                  <div class="terminal-scroll" data-terminal-scroll>
+                    <div class="terminal-history" data-terminal-history></div>
+                    <div class="terminal-cursor-row" data-terminal-cursor-row data-concealed="false">
+                      <span class="prompt" data-prompt></span><span class="typed" data-typed></span><span class="caret" data-caret data-hidden="true" aria-hidden="true"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <aside class="auth-column" aria-label="Simulated authentication">
+                <div class="touch-sheet" data-touch-sheet hidden>
+                  <!-- Fingerprint in circle; app icon badge (app-icon-exports). Watch screen uses 128@2x in Mac mock. -->
+                  <div class="touch-sheet-icon-row">
+                    <div class="touch-sheet-fingerprint-bubble">
+                      <div class="touch-sheet-fingerprint-inner" data-touch-icon>
+                        <div class="touch-sheet-fingerprint-frame">
+                          <img
+                            src="assets/fingerprint-touch.png"
+                            alt=""
+                            class="touch-sheet-fingerprint-img"
+                            width="48"
+                            height="48"
+                            decoding="async"
+                          />
+                        </div>
+                      </div>
+                      <span class="touch-sheet-app-badge" aria-hidden="true">
+                        <img
+                          src="assets/app-icon-exports/AppIcon-macOS-Default-32x32@2x.png"
+                          alt=""
+                          class="touch-sheet-app-badge-img"
+                          width="20"
+                          height="20"
+                          decoding="async"
+                        />
+                      </span>
+                    </div>
+                  </div>
+                  <h3 class="touch-sheet-title" data-touch-title>Key Agent</h3>
+                  <p class="touch-sheet-line touch-sheet-line--primary" data-touch-line1>
+                    Key Agent is trying to Unlock key vault..
+                  </p>
+                  <p class="touch-sheet-line touch-sheet-line--secondary" data-touch-line2>
+                    Touch ID or enter your password to allow this.
+                  </p>
+                  <div class="touch-sheet-actions">
+                    <button type="button" class="touch-btn touch-btn-primary" data-touch-primary disabled>
+                      Use Password...
+                    </button>
+                    <button type="button" class="touch-btn touch-btn-secondary" disabled>Cancel</button>
+                  </div>
+                </div>
+
+                <div class="watch-frame watch-frame--ultra" data-watch-frame hidden>
+                  <div class="watch-screen-wrap">
+                    <div class="watch-screen">
+                      <button class="watch-close" type="button" disabled tabindex="-1" aria-hidden="true">
+                        <span aria-hidden="true">×</span>
+                      </button>
+                      <div class="watch-content" data-watch-content>
+                        <div class="watch-stack">
+                          <div class="watch-upper">
+                            <div class="watch-mac-cluster">
+                              <div class="watch-mac-display" aria-hidden="true">
+                                <div class="watch-mac-inner">
+                                  <img
+                                    src="assets/app-icon-exports/AppIcon-macOS-Default-128x128@2x.png"
+                                    alt=""
+                                    class="watch-mac-app-img"
+                                    width="32"
+                                    height="32"
+                                    decoding="async"
+                                  />
+                                </div>
+                              </div>
+                              <div class="watch-mac-stand" aria-hidden="true"></div>
+                            </div>
+                            <p class="watch-device-name">Your Mac</p>
+                          </div>
+                          <div class="watch-lower">
+                            <div class="watch-footer-approve" data-watch-approve>
+                              <div class="watch-dc-text">
+                                <span class="watch-dc-line">Double Click</span>
+                                <span class="watch-dc-line">to Approve</span>
+                              </div>
+                              <div class="watch-side-pill" aria-hidden="true"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="watch-side-exterior" aria-hidden="true"></div>
+                  <div class="watch-crown" aria-hidden="true"></div>
+                </div>
+              </aside>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="features" id="how">
+        <div class="section-head">
+          <h2>The difference</h2>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <h3>Each secret is its own file</h3>
+            <p>
+              Not hidden inside an app. Every secret is a real file on your disk — organize it in folders,
+              back it up like any other file, move it to a new machine. The structure is transparent and yours.
+            </p>
+          </article>
+          <article class="feature-card">
+            <h3>You're never locked in</h3>
+            <p>
+              The encrypted files are on your disk. The vault key is in your Keychain. Both are yours. key uses
+              standard AES-256-GCM — meaning you can decrypt any secret yourself, without the app, using any
+              standard crypto tool.
+            </p>
+          </article>
+          <article class="feature-card">
+            <h3>Generate passwords your way</h3>
+            <p>
+              key has no built-in password generator — no default recipe for length, symbols, or entropy.
+              Adding and editing are stdin-first: pipe in <code>openssl</code>, <code>pwgen</code>,
+              <code>diceware</code>, or any tool you trust. You decide what strong looks like.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="compose-section" id="shell">
+        <div class="section-head">
+          <h2>Built for the shell</h2>
+          <p>Pipe in, pipe out, compose with whatever you already use.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card compose-card">
+            <h3>Pipe in any generator</h3>
+            <pre><code>openssl rand -base64 32 | key add aws/prod/token
+pwgen -sy 24 1 | key add github/personal
+diceware -n 6 | key add backup/passphrase
+uuidgen | key add app/deploy-token</code></pre>
+          </article>
+          <article class="feature-card compose-card">
+            <h3>Fuzzy pick with fzf</h3>
+            <pre><code>key get    "$(key list | fzf)"
+key copy   "$(key list | fzf)"
+key edit   "$(key list | fzf)"
+key remove "$(key list | fzf)"</code></pre>
+          </article>
+          <article class="feature-card compose-card">
+            <h3>Inject into your dev environment</h3>
+            <pre><code># .env.schema
+DATABASE_URL=exec(`key get db/prod/url`)
+API_TOKEN=exec(`key get services/stripe/key`)
+
+varlock run -- npm start</code></pre>
+          </article>
+        </div>
+      </section>
+
+      <section class="bottom-section" id="cli">
+        <div class="bottom-grid">
+          <article class="feature-card compose-card commands-card">
+            <h3>Commands</h3>
+            <!-- Mirrors Sources/KeyCore/CLIParser.swift usageText -->
+            <div class="cli-help" aria-label="key CLI help">
+              <p class="cli-help-label">Usage</p>
+              <p class="cli-help-usage"><span class="cli-help-cmd">key</span> &lt;command&gt; [arguments]</p>
+
+              <p class="cli-help-label">Commands</p>
+              <dl class="cli-help-list">
+                <div><dt><code>get &lt;name&gt;</code></dt><dd>Print a secret.</dd></div>
+                <div><dt><code>copy &lt;name&gt;</code></dt><dd>Copy a secret to the clipboard.</dd></div>
+                <div><dt><code>add &lt;name&gt;</code></dt><dd>Add a new secret from stdin or prompt.</dd></div>
+                <div><dt><code>edit &lt;name&gt;</code></dt><dd>Update a secret from stdin or prompt.</dd></div>
+                <div><dt><code>duplicate &lt;src&gt; &lt;dst&gt; [--force]</code></dt><dd>Duplicate an entry.</dd></div>
+                <div><dt><code>rename &lt;src&gt; &lt;dst&gt; [--force]</code></dt><dd>Rename an entry.</dd></div>
+                <div><dt><code>remove &lt;name&gt; [--force]</code></dt><dd>Remove a secret.</dd></div>
+                <div><dt><code>list</code></dt><dd>List stored secrets.</dd></div>
+                <div><dt><code>unlock</code></dt><dd>Warm the helper session.</dd></div>
+                <div><dt><code>lock</code></dt><dd>Clear the helper session and stop the helper.</dd></div>
+                <div><dt><code>version [--json]</code></dt><dd>Print the CLI version.</dd></div>
+                <div><dt><code>help</code></dt><dd>Show this help.</dd></div>
+              </dl>
+
+              <p class="cli-help-label">Options</p>
+              <dl class="cli-help-list">
+                <div><dt><code>--force</code></dt><dd>Skip overwrite or removal confirmation.</dd></div>
+                <div><dt><code>--json</code></dt><dd>Print version info as JSON.</dd></div>
+              </dl>
+            </div>
+          </article>
+          <article class="feature-card compose-card install-card">
+            <h3>Install</h3>
+            <div class="install-inner">
+              <p class="install-warn">Early development — follow the repo for releases.</p>
+              <pre class="install-code"><code>brew tap tvanreenen/tap
+brew install --cask key</code></pre>
+              <p class="install-hint">Open <strong>Key.app</strong> once so the Key Agent can register with macOS.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>key</span>
+      <span class="footer-dot">·</span>
+      <a href="https://github.com/tvanreenen/key" rel="noopener">Source</a>
+    </footer>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>
