@@ -17,7 +17,6 @@
   --radius-md: 12px;
   --font-sans: "Outfit", system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
-  --shadow-soft: 0 24px 80px rgba(0, 0, 0, 0.55);
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -110,10 +109,11 @@ body {
 /* Hero */
 .hero {
   position: relative;
-  min-height: min(92vh, 900px);
+  min-height: min(88vh, 860px);
   display: flex;
-  align-items: flex-end;
-  padding: 7rem 1.5rem 4rem;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 0;
   overflow: hidden;
 }
 
@@ -143,10 +143,69 @@ body {
   );
 }
 
-.hero-inner {
+.hero-shell {
   position: relative;
   z-index: 1;
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 7rem 1.5rem 3.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 2.5rem;
+  min-width: 0;
+}
+
+.hero-inner {
+  position: relative;
   max-width: 720px;
+  min-width: 0;
+}
+
+.hero-demo {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+}
+
+.hero-demo .demo-stage {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-demo.is-terminal-priming .terminal-window {
+  opacity: 0;
+}
+
+@media (min-width: 1100px) {
+  .hero-shell {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(300px, min(44vw, 460px));
+    gap: 2rem clamp(1.5rem, 3.5vw, 2.75rem);
+    align-items: center;
+    align-content: center;
+    justify-content: stretch;
+    padding-bottom: 3rem;
+  }
+
+  .hero-demo {
+    align-self: start;
+  }
+
+  .hero-inner {
+    max-width: none;
+  }
+
+  .hero-lead {
+    max-width: min(52ch, 100%);
+  }
+
+  .hero-demo .demo-desktop {
+    max-width: 100%;
+    margin: 0;
+  }
 }
 
 .eyebrow {
@@ -220,19 +279,6 @@ body {
 }
 
 
-/* Demo section */
-.demo-section {
-  position: relative;
-  padding: 2rem 1.5rem 4rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.demo-section .demo-stage {
-  position: relative;
-  z-index: 1;
-}
-
 .section-head {
   text-align: center;
   max-width: 560px;
@@ -281,9 +327,8 @@ body {
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-soft);
   overflow: hidden;
-  min-height: 320px;
+  min-height: 260px;
 }
 
 .terminal-chrome {
@@ -450,67 +495,76 @@ body {
   }
 }
 
-/* Auth overlays — sit right of center so Touch ID reads over the terminal, not the bezel */
+/* Auth overlays — full terminal bounds; Touch ID + watch centered as a unit; watch straddles sheet’s right edge */
 .auth-column {
   position: absolute;
-  top: 0;
-  right: min(12%, 3.5rem);
-  bottom: 0;
+  inset: 0;
+  margin: 0;
+  border: none;
+  padding: 0;
   z-index: 5;
-  width: min(58%, 400px);
-  padding: 0.35rem 0.4rem 0.45rem 0.45rem;
   box-sizing: border-box;
   pointer-events: none;
-  /* Reposition the watch here only — do not add scale(); width stays the single size knob. */
   --auth-watch-width: 176px;
   --auth-watch-max-width: none;
-  --auth-watch-bottom: 0.35rem;
-  --auth-watch-left: auto;
-  --auth-watch-right: 0;
 }
 
-/* Touch sheet: centered in this column (column itself is inset from terminal edge) */
-.auth-column .touch-sheet {
+/* Pairs sheet + watch: centered in the terminal; keeps a min box when sheet is [hidden] (debug watch / idle) */
+.auth-pair {
   position: absolute;
-  top: 0.35rem;
+  top: 50%;
   left: 50%;
-  right: auto;
-  margin: 0;
-  width: min(100%, 292px);
+  transform: translate(-50%, -50%);
+  width: min(calc(100% - 2rem), 292px);
   z-index: 6;
-  transform: translate(-50%, 10px) scale(0.97);
+  pointer-events: none;
+}
+
+.auth-pair:not(:has(.touch-sheet:not([hidden]))) {
+  min-height: 200px;
+}
+
+.auth-column .auth-pair .touch-sheet {
+  position: relative;
+  top: auto;
+  left: auto;
+  right: auto;
+  width: 100%;
+  margin: 0;
+  z-index: 1;
+  transform: translateY(10px) scale(0.97);
   pointer-events: auto;
   box-shadow:
     0 0 0 0.5px rgba(0, 0, 0, 0.4),
-    0 24px 60px rgba(0, 0, 0, 0.6),
+    0 8px 28px rgba(0, 0, 0, 0.32),
     0 0 0 1px rgba(255, 255, 255, 0.07);
 }
 
-.auth-column .touch-sheet[data-visible="true"] {
-  transform: translate(-50%, 0) scale(1);
+.auth-column .auth-pair .touch-sheet[data-visible="true"] {
+  transform: translateY(0) scale(1);
 }
 
-.auth-column .watch-frame {
+/* Lower-right of the sheet: mostly on the dialog, slight extension past the right edge */
+.auth-column .auth-pair .watch-frame {
   position: absolute;
-  top: auto;
-  bottom: var(--auth-watch-bottom);
-  left: var(--auth-watch-left);
-  right: var(--auth-watch-right);
+  top: 64%;
+  left: calc(100% - 14px);
+  right: auto;
+  bottom: auto;
   width: var(--auth-watch-width);
   max-width: var(--auth-watch-max-width);
   margin: 0;
-  z-index: 7;
-  align-self: auto;
+  z-index: 2;
   opacity: 0;
-  transform: translateY(14px);
+  transform: translate(-50%, calc(-50% + 14px));
   transition:
     opacity 0.32s var(--ease-out) 0.04s,
     transform 0.32s var(--ease-out) 0.04s;
 }
 
-.auth-column .watch-frame[data-visible="true"] {
+.auth-column .auth-pair .watch-frame[data-visible="true"] {
   opacity: 1;
-  transform: translateY(0);
+  transform: translate(-50%, -50%);
 }
 
 
@@ -525,7 +579,7 @@ body {
   padding: 1rem 1.1rem 0.95rem;
   box-shadow:
     0 0 0 0.5px rgba(0, 0, 0, 0.35),
-    0 18px 50px rgba(0, 0, 0, 0.55);
+    0 8px 26px rgba(0, 0, 0, 0.3);
   font-family:
     -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
   text-align: left;
@@ -695,7 +749,7 @@ body {
   border-radius: 2rem;
   background: linear-gradient(155deg, #a8adb2 0%, #7a7f84 38%, #4f5256 100%);
   box-shadow:
-    0 18px 44px rgba(0, 0, 0, 0.5),
+    0 10px 28px rgba(0, 0, 0, 0.28),
     inset 0 1px 0 rgba(255, 255, 255, 0.14),
     inset 0 -1px 0 rgba(0, 0, 0, 0.18);
   overflow: visible;
@@ -773,7 +827,7 @@ body {
   border: 2px solid #1c1c20;
   box-shadow:
     inset 0 0 0 1px rgba(255, 255, 255, 0.05),
-    0 12px 36px rgba(0, 0, 0, 0.55);
+    0 6px 22px rgba(0, 0, 0, 0.28);
   overflow: hidden;
   z-index: 2;
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif;

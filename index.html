@@ -45,129 +45,133 @@
           <img src="assets/hero.png" alt="" class="hero-bg-img" width="1920" height="1080" decoding="async" />
           <div class="hero-bg-scrim"></div>
         </div>
-        <div class="hero-inner">
-          <p class="eyebrow">Secret Manager · macOS · CLI · Open Source</p>
-          <h1 class="hero-title">
-            Secrets you control.<br />
-            <span class="hero-title-accent">Native macOS Security.</span>
-          </h1>
-          <p class="hero-lead">
-            <code>key</code> is a CLI secret manager — each secret stored as its own encrypted file on your disk, named, organized, and backed up however you want. The vault key lives in your Keychain, released through macOS user presence authentication — Apple&nbsp;Watch, Touch&nbsp;ID, or your system password.
-          </p>
-          <div class="hero-cta">
-            <a class="btn btn-primary" href="https://github.com/tvanreenen/key" rel="noopener">View on GitHub</a>
+        <div class="hero-shell">
+          <div class="hero-inner">
+            <p class="eyebrow">Secret Manager · macOS · CLI · Open Source</p>
+            <h1 class="hero-title">
+              Secrets you control.<br />
+              <span class="hero-title-accent">Native macOS Security.</span>
+            </h1>
+            <p class="hero-lead">
+              <code>key</code> is a CLI secret manager — each secret stored as its own encrypted file on your disk, named, organized, and backed up however you want. The vault key lives in your Keychain, released through macOS user presence authentication — Apple&nbsp;Watch, Touch&nbsp;ID, or your system password.
+            </p>
+            <div class="hero-cta">
+              <a class="btn btn-primary" href="https://github.com/tvanreenen/key" rel="noopener">View on GitHub</a>
+            </div>
           </div>
-        </div>
-      </section>
 
-      <section class="demo-section" id="demo">
-        <div class="demo-stage">
-          <div class="demo-desktop">
-            <div class="demo-terminal-stack">
-              <div class="terminal-window" data-terminal>
-                <div class="terminal-chrome">
-                  <span class="dot dot-red"></span>
-                  <span class="dot dot-yellow"></span>
-                  <span class="dot dot-green"></span>
-                  <span class="terminal-title">Terminal</span>
-                </div>
-                <div class="terminal-body">
-                  <div class="terminal-scroll" data-terminal-scroll>
-                    <div class="terminal-history" data-terminal-history></div>
-                    <div class="terminal-cursor-row" data-terminal-cursor-row data-concealed="false">
-                      <span class="prompt" data-prompt></span><span class="typed" data-typed></span><span class="caret" data-caret data-hidden="true" aria-hidden="true"></span>
+          <div class="hero-demo" id="demo">
+            <div class="demo-stage">
+              <div class="demo-desktop">
+                <div class="demo-terminal-stack">
+                  <div class="terminal-window" data-terminal>
+                    <div class="terminal-chrome">
+                      <span class="dot dot-red"></span>
+                      <span class="dot dot-yellow"></span>
+                      <span class="dot dot-green"></span>
+                      <span class="terminal-title">Terminal</span>
                     </div>
-                  </div>
-                </div>
-              </div>
-
-              <aside class="auth-column" aria-label="Simulated authentication">
-                <div class="touch-sheet" data-touch-sheet hidden>
-                  <!-- Fingerprint in circle; app icon badge (app-icon-exports). Watch screen uses 128@2x in Mac mock. -->
-                  <div class="touch-sheet-icon-row">
-                    <div class="touch-sheet-fingerprint-bubble">
-                      <div class="touch-sheet-fingerprint-inner" data-touch-icon>
-                        <div class="touch-sheet-fingerprint-frame">
-                          <img
-                            src="assets/fingerprint-touch.png"
-                            alt=""
-                            class="touch-sheet-fingerprint-img"
-                            width="48"
-                            height="48"
-                            decoding="async"
-                          />
+                    <div class="terminal-body">
+                      <div class="terminal-scroll" data-terminal-scroll>
+                        <div class="terminal-history" data-terminal-history></div>
+                        <div class="terminal-cursor-row" data-terminal-cursor-row data-concealed="false">
+                          <span class="prompt" data-prompt></span><span class="typed" data-typed></span><span class="caret" data-caret data-hidden="true" aria-hidden="true"></span>
                         </div>
                       </div>
-                      <span class="touch-sheet-app-badge" aria-hidden="true">
-                        <img
-                          src="assets/app-icon-exports/AppIcon-macOS-Default-32x32@2x.png"
-                          alt=""
-                          class="touch-sheet-app-badge-img"
-                          width="20"
-                          height="20"
-                          decoding="async"
-                        />
-                      </span>
                     </div>
                   </div>
-                  <h3 class="touch-sheet-title" data-touch-title>Key Agent</h3>
-                  <p class="touch-sheet-line touch-sheet-line--primary" data-touch-line1>
-                    Key Agent is trying to Unlock key vault..
-                  </p>
-                  <p class="touch-sheet-line touch-sheet-line--secondary" data-touch-line2>
-                    Touch ID or enter your password to allow this.
-                  </p>
-                  <div class="touch-sheet-actions">
-                    <button type="button" class="touch-btn touch-btn-primary" data-touch-primary disabled>
-                      Use Password...
-                    </button>
-                    <button type="button" class="touch-btn touch-btn-secondary" disabled>Cancel</button>
-                  </div>
-                </div>
 
-                <div class="watch-frame watch-frame--ultra" data-watch-frame hidden>
-                  <div class="watch-screen-wrap">
-                    <div class="watch-screen">
-                      <button class="watch-close" type="button" disabled tabindex="-1" aria-hidden="true">
-                        <span aria-hidden="true">×</span>
-                      </button>
-                      <div class="watch-content" data-watch-content>
-                        <div class="watch-stack">
-                          <div class="watch-upper">
-                            <div class="watch-mac-cluster">
-                              <div class="watch-mac-display" aria-hidden="true">
-                                <div class="watch-mac-inner">
-                                  <img
-                                    src="assets/app-icon-exports/AppIcon-macOS-Default-128x128@2x.png"
-                                    alt=""
-                                    class="watch-mac-app-img"
-                                    width="32"
-                                    height="32"
-                                    decoding="async"
-                                  />
+                  <aside class="auth-column" aria-label="Simulated authentication">
+                    <div class="auth-pair" data-auth-pair>
+                    <div class="touch-sheet" data-touch-sheet hidden>
+                      <!-- Fingerprint in circle; app icon badge (app-icon-exports). Watch screen uses 128@2x in Mac mock. -->
+                      <div class="touch-sheet-icon-row">
+                        <div class="touch-sheet-fingerprint-bubble">
+                          <div class="touch-sheet-fingerprint-inner" data-touch-icon>
+                            <div class="touch-sheet-fingerprint-frame">
+                              <img
+                                src="assets/fingerprint-touch.png"
+                                alt=""
+                                class="touch-sheet-fingerprint-img"
+                                width="48"
+                                height="48"
+                                decoding="async"
+                              />
+                            </div>
+                          </div>
+                          <span class="touch-sheet-app-badge" aria-hidden="true">
+                            <img
+                              src="assets/app-icon-exports/AppIcon-macOS-Default-32x32@2x.png"
+                              alt=""
+                              class="touch-sheet-app-badge-img"
+                              width="20"
+                              height="20"
+                              decoding="async"
+                            />
+                          </span>
+                        </div>
+                      </div>
+                      <h3 class="touch-sheet-title" data-touch-title>Key Agent</h3>
+                      <p class="touch-sheet-line touch-sheet-line--primary" data-touch-line1>
+                        Key Agent is trying to Unlock key vault..
+                      </p>
+                      <p class="touch-sheet-line touch-sheet-line--secondary" data-touch-line2>
+                        Touch ID or enter your password to allow this.
+                      </p>
+                      <div class="touch-sheet-actions">
+                        <button type="button" class="touch-btn touch-btn-primary" data-touch-primary disabled>
+                          Use Password...
+                        </button>
+                        <button type="button" class="touch-btn touch-btn-secondary" disabled>Cancel</button>
+                      </div>
+                    </div>
+
+                    <div class="watch-frame watch-frame--ultra" data-watch-frame hidden>
+                      <div class="watch-screen-wrap">
+                        <div class="watch-screen">
+                          <button class="watch-close" type="button" disabled tabindex="-1" aria-hidden="true">
+                            <span aria-hidden="true">×</span>
+                          </button>
+                          <div class="watch-content" data-watch-content>
+                            <div class="watch-stack">
+                              <div class="watch-upper">
+                                <div class="watch-mac-cluster">
+                                  <div class="watch-mac-display" aria-hidden="true">
+                                    <div class="watch-mac-inner">
+                                      <img
+                                        src="assets/app-icon-exports/AppIcon-macOS-Default-128x128@2x.png"
+                                        alt=""
+                                        class="watch-mac-app-img"
+                                        width="32"
+                                        height="32"
+                                        decoding="async"
+                                      />
+                                    </div>
+                                  </div>
+                                  <div class="watch-mac-stand" aria-hidden="true"></div>
+                                </div>
+                                <p class="watch-device-name">Your Mac</p>
+                              </div>
+                              <div class="watch-lower">
+                                <div class="watch-footer-approve" data-watch-approve>
+                                  <div class="watch-dc-text">
+                                    <span class="watch-dc-line">Double Click</span>
+                                    <span class="watch-dc-line">to Approve</span>
+                                  </div>
+                                  <div class="watch-side-pill" aria-hidden="true"></div>
                                 </div>
                               </div>
-                              <div class="watch-mac-stand" aria-hidden="true"></div>
-                            </div>
-                            <p class="watch-device-name">Your Mac</p>
-                          </div>
-                          <div class="watch-lower">
-                            <div class="watch-footer-approve" data-watch-approve>
-                              <div class="watch-dc-text">
-                                <span class="watch-dc-line">Double Click</span>
-                                <span class="watch-dc-line">to Approve</span>
-                              </div>
-                              <div class="watch-side-pill" aria-hidden="true"></div>
                             </div>
                           </div>
                         </div>
                       </div>
+                      <div class="watch-side-exterior" aria-hidden="true"></div>
+                      <div class="watch-crown" aria-hidden="true"></div>
                     </div>
-                  </div>
-                  <div class="watch-side-exterior" aria-hidden="true"></div>
-                  <div class="watch-crown" aria-hidden="true"></div>
+                    </div>
+                  </aside>
                 </div>
-              </aside>
+              </div>
             </div>
           </div>
         </div>

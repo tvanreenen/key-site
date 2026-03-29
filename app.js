@@ -25,7 +25,9 @@
   /** Must match `watch-side-double-press` duration in marketing/styles.css */
   const WATCH_DOUBLE_PRESS_MS = 720;
 
-  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+  let instantDemo = false;
+  const sleep = (ms) =>
+    instantDemo ? Promise.resolve() : new Promise((r) => setTimeout(r, ms));
 
   function syncWatchSideButton() {
     if (!watchFrame || !watchSidePill || !watchSideExterior) return;
@@ -114,6 +116,10 @@
   async function typeString(targetEl, caret, text, cps = 38) {
     targetEl.textContent = "";
     setLineCaret(caret, true);
+    if (instantDemo) {
+      targetEl.textContent = text;
+      return;
+    }
     for (let i = 0; i < text.length; i++) {
       targetEl.textContent += text[i];
       await sleep(cps + Math.random() * 18);
@@ -123,6 +129,10 @@
   async function typeMasked(targetEl, caret, length, cps = 48) {
     targetEl.textContent = "";
     setLineCaret(caret, true);
+    if (instantDemo) {
+      targetEl.textContent = "•".repeat(length);
+      return;
+    }
     for (let i = 0; i < length; i++) {
       targetEl.textContent += "•";
       await sleep(cps + Math.random() * 22);
@@ -205,6 +215,7 @@
   }
 
   async function showAuth({ title, line1, line2 } = {}) {
+    if (instantDemo) return;
     if (touchTitle) touchTitle.textContent = title ?? "Key Agent";
     if (touchLine1) touchLine1.textContent = line1 ?? "";
     if (touchLine2)
@@ -236,6 +247,7 @@
   }
 
   async function authSuccess() {
+    if (instantDemo) return;
     if (touchSheet) touchSheet.dataset.success = "true";
     if (watchFrame) watchFrame.dataset.sidePress = "true";
     await sleep(WATCH_DOUBLE_PRESS_MS);
@@ -247,6 +259,7 @@
   }
 
   async function hideAuth() {
+    if (instantDemo) return;
     if (touchSheet) {
       touchSheet.dataset.visible = "false";
       touchSheet.dataset.success = "false";
@@ -303,6 +316,80 @@
     },
   ];
 
+  async function runAllScenesForMeasure() {
+    for (const scene of scenes) {
+      if (scene.kind === "add") {
+        await runAddScene(scene.promptHtml ?? promptPlain, scene);
+      } else {
+        await runLine(scene.promptHtml ?? promptPlain, scene.command, {
+          output: scene.output ?? [],
+          needAuth: scene.needAuth ?? false,
+          auth: scene.auth ?? {},
+        });
+      }
+      if (!instantDemo) await sleep(1400);
+    }
+  }
+
+  async function primeTerminalHeight() {
+    const terminalEl = document.querySelector("[data-terminal]");
+    const heroDemo = document.querySelector(".hero-demo");
+    if (!terminalEl || !scrollEl || !historyEl) return;
+
+    heroDemo?.classList.add("is-terminal-priming");
+    instantDemo = true;
+    historyEl.innerHTML = "";
+    setPrompt(promptPlain);
+    typedEl.textContent = "";
+    setCursorRowConcealed(false);
+    setCaret(true);
+
+    try {
+      await runAllScenesForMeasure();
+      scrollTerminalToBottom();
+      await new Promise((resolve) => {
+        requestAnimationFrame(() => {
+          requestAnimationFrame(resolve);
+        });
+      });
+      scrollTerminalToBottom();
+      const chromeEl = terminalEl.querySelector(".terminal-chrome");
+      const bodyEl = terminalEl.querySelector(".terminal-body");
+      let h = terminalEl.offsetHeight;
+      if (chromeEl && bodyEl) {
+        h = Math.max(h, chromeEl.offsetHeight + bodyEl.offsetHeight);
+      }
+      terminalEl.style.height = `${h}px`;
+      terminalEl.style.minHeight = `${h}px`;
+      terminalEl.dataset.heightLocked = "true";
+    } finally {
+      instantDemo = false;
+      heroDemo?.classList.remove("is-terminal-priming");
+    }
+
+    historyEl.innerHTML = "";
+    setPrompt(promptPlain);
+    typedEl.textContent = "";
+    setCursorRowConcealed(false);
+    setCaret(true);
+    if (touchSheet) {
+      touchSheet.hidden = true;
+      touchSheet.dataset.visible = "false";
+      touchSheet.dataset.success = "false";
+    }
+    if (watchFrame) {
+      watchFrame.hidden = true;
+      watchFrame.dataset.visible = "false";
+      delete watchFrame.dataset.sidePress;
+    }
+    if (watchContent) watchContent.hidden = false;
+    if (watchApprove) watchApprove.dataset.active = "false";
+    if (touchIcon && fingerprintInnerHTML) {
+      touchIcon.innerHTML = fingerprintInnerHTML;
+    }
+    applyDebugWatchLayout();
+  }
+
   function applyDebugWatchLayout() {
     if (!DEBUG_WATCH_LAYOUT || !watchFrame) return;
     watchFrame.hidden = false;
@@ -329,7 +416,7 @@
 
   applyDebugWatchLayout();
 
-  async function loop() {
+  async function runDemoLoop() {
     await sleep(600);
     for (;;) {
       historyEl.innerHTML = "";
@@ -355,5 +442,10 @@
     }
   }
 
-  loop().catch(console.error);
+  async function start() {
+    await primeTerminalHeight();
+    await runDemoLoop();
+  }
+
+  start().catch(console.error);
 })();
