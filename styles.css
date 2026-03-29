@@ -1171,6 +1171,27 @@ body {
   color: var(--matrix);
 }
 
+.feature-card p a:link,
+.feature-card p a:visited {
+  color: var(--matrix);
+  text-decoration: underline;
+  text-decoration-color: rgba(74, 222, 128, 0.35);
+  text-underline-offset: 0.12em;
+}
+
+.feature-card p a:hover {
+  color: var(--text);
+  text-decoration-color: rgba(74, 222, 128, 0.65);
+}
+
+.feature-card p a:hover code {
+  color: var(--matrix);
+}
+
+.feature-card p a code {
+  color: var(--matrix);
+}
+
 /* Compose section */
 .compose-section {
   padding: 2rem 1.5rem 4rem;
@@ -1380,25 +1401,3 @@ body {
   color: var(--muted);
 }
 
-/* Footer */
-.footer {
-  padding: 2rem 1.5rem 3rem;
-  text-align: center;
-  font-size: 0.85rem;
-  color: var(--dim);
-  border-top: 1px solid var(--border);
-}
-
-.footer a {
-  color: var(--muted);
-  text-decoration: none;
-}
-
-.footer a:hover {
-  color: var(--text);
-}
-
-.footer-dot {
-  margin: 0 0.5rem;
-  opacity: 0.5;
-}
