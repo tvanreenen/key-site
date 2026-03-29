@@ -228,19 +228,6 @@ body {
   margin: 0 auto;
 }
 
-.demo-section::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 0;
-  width: min(100%, 900px);
-  height: 320px;
-  transform: translateX(-50%);
-  background: radial-gradient(ellipse 70% 60% at 50% 20%, rgba(59, 130, 246, 0.12), transparent 65%);
-  pointer-events: none;
-  z-index: 0;
-}
-
 .demo-section .demo-stage {
   position: relative;
   z-index: 1;
