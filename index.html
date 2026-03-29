@@ -34,8 +34,7 @@
       </a>
       <nav class="nav-links">
         <a href="#how">The difference</a>
-        <a href="#shell">Works with</a>
-        <a href="#cli">Use &amp; install</a>
+        <a href="#cli">Install &amp; use</a>
         <a href="https://github.com/tvanreenen/key" rel="noopener">GitHub</a>
       </nav>
     </header>
@@ -215,45 +214,27 @@
         </div>
       </section>
 
-      <section class="compose-section" id="shell">
-        <div class="section-head">
-          <h2>Built for the shell</h2>
-          <p>Pipe in, pipe out, compose with whatever you already use.</p>
-        </div>
-        <div class="feature-grid">
-          <article class="feature-card compose-card">
-            <h3>Pipe in any generator</h3>
-            <pre><code>openssl rand -base64 32 | key add aws/prod/token
-pwgen -sy 24 1 | key add github/personal
-diceware -n 6 | key add backup/passphrase
-uuidgen | key add app/deploy-token</code></pre>
-          </article>
-          <article class="feature-card compose-card">
-            <h3>Fuzzy pick with fzf</h3>
-            <pre><code>key get    "$(key list | fzf)"
-key copy   "$(key list | fzf)"
-key edit   "$(key list | fzf)"
-key remove "$(key list | fzf)"</code></pre>
-          </article>
-          <article class="feature-card compose-card">
-            <h3>Inject into your dev environment</h3>
-            <pre><code># .env.schema
-DATABASE_URL=exec(`key get db/prod/url`)
-API_TOKEN=exec(`key get services/stripe/key`)
-
-varlock run -- npm start</code></pre>
-          </article>
-        </div>
-      </section>
-
       <section class="bottom-section" id="cli">
         <div class="section-head">
-          <h2>CLI reference &amp; install</h2>
+          <h2>Install &amp; CLI reference</h2>
           <p>
-            The commands and flags you use day to day, plus how to install Key and its helper with Homebrew.
+            How to install Key and its helper with Homebrew, then the commands and flags you use day to day.
           </p>
         </div>
         <div class="bottom-grid">
+          <article class="feature-card compose-card install-card">
+            <h3>Install</h3>
+            <div class="install-inner">
+              <pre class="install-code"><code>brew tap tvanreenen/tap
+brew install --cask key</code></pre>
+              <p class="install-note">
+                If you manage installs with a <strong>Brewfile</strong>, add the tap and cask there as well:
+              </p>
+              <pre class="install-code"><code>tap "tvanreenen/tap"
+cask "key"</code></pre>
+              <p class="install-hint">Open <strong>Key.app</strong> once so the Key Agent can register with macOS.</p>
+            </div>
+          </article>
           <article class="feature-card compose-card commands-card">
             <h3>Commands</h3>
             <!-- Mirrors Sources/KeyCore/CLIParser.swift usageText -->
@@ -284,18 +265,36 @@ varlock run -- npm start</code></pre>
               </dl>
             </div>
           </article>
-          <article class="feature-card compose-card install-card">
-            <h3>Install</h3>
-            <div class="install-inner">
-              <pre class="install-code"><code>brew tap tvanreenen/tap
-brew install --cask key</code></pre>
-              <p class="install-note">
-                If you manage installs with a <strong>Brewfile</strong>, add the tap and cask there as well:
-              </p>
-              <pre class="install-code"><code>tap "tvanreenen/tap"
-cask "key"</code></pre>
-              <p class="install-hint">Open <strong>Key.app</strong> once so the Key Agent can register with macOS.</p>
-            </div>
+        </div>
+      </section>
+
+      <section class="compose-section" id="shell">
+        <div class="section-head">
+          <h2>Built for the shell</h2>
+          <p>Pipe in, pipe out, compose with whatever you already use.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card compose-card">
+            <h3>Pipe in any generator</h3>
+            <pre><code>openssl rand -base64 32 | key add aws/prod/token
+pwgen -sy 24 1 | key add github/personal
+diceware -n 6 | key add backup/passphrase
+uuidgen | key add app/deploy-token</code></pre>
+          </article>
+          <article class="feature-card compose-card">
+            <h3>Fuzzy pick with fzf</h3>
+            <pre><code>key get    "$(key list | fzf)"
+key copy   "$(key list | fzf)"
+key edit   "$(key list | fzf)"
+key remove "$(key list | fzf)"</code></pre>
+          </article>
+          <article class="feature-card compose-card">
+            <h3>Inject into your dev environment</h3>
+            <pre><code># .env.schema
+DATABASE_URL=exec(`key get db/prod/url`)
+API_TOKEN=exec(`key get services/stripe/key`)
+
+varlock run -- npm start</code></pre>
           </article>
         </div>
       </section>
