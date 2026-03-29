@@ -33,8 +33,9 @@
         <span class="brand-name">key</span>
       </a>
       <nav class="nav-links">
-        <a href="#how">The Difference</a>
-        <a href="#cli">Install</a>
+        <a href="#how">The difference</a>
+        <a href="#shell">Works with</a>
+        <a href="#cli">Use &amp; install</a>
         <a href="https://github.com/tvanreenen/key" rel="noopener">GitHub</a>
       </nav>
     </header>
@@ -240,6 +241,12 @@ varlock run -- npm start</code></pre>
       </section>
 
       <section class="bottom-section" id="cli">
+        <div class="section-head">
+          <h2>CLI reference &amp; install</h2>
+          <p>
+            The commands and flags you use day to day, plus how to install Key and its helper with Homebrew.
+          </p>
+        </div>
         <div class="bottom-grid">
           <article class="feature-card compose-card commands-card">
             <h3>Commands</h3>
@@ -274,9 +281,13 @@ varlock run -- npm start</code></pre>
           <article class="feature-card compose-card install-card">
             <h3>Install</h3>
             <div class="install-inner">
-              <p class="install-warn">Early development — follow the repo for releases.</p>
               <pre class="install-code"><code>brew tap tvanreenen/tap
 brew install --cask key</code></pre>
+              <p class="install-note">
+                If you manage installs with a <strong>Brewfile</strong>, add the tap and cask there as well:
+              </p>
+              <pre class="install-code"><code>tap "tvanreenen/tap"
+cask "key"</code></pre>
               <p class="install-hint">Open <strong>Key.app</strong> once so the Key Agent can register with macOS.</p>
             </div>
           </article>
