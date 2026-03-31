@@ -5,10 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="key — CLI secret manager for macOS. Each secret its own encrypted file on your disk, backed up however you want. The vault key in your Keychain, released by Touch ID, Apple Watch, or your system password."
+      content="key is a CLI secret and OTP manager for macOS. Each item is its own encrypted file on disk. The vault key lives in your Keychain, released by Apple Watch, Touch ID, or your system password."
     />
     <meta name="theme-color" content="#05070c" />
-    <title>key — macOS secret manager</title>
+    <title>key — macOS CLI secret and OTP manager</title>
+    <link rel="canonical" href="https://key.tvr.works/" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="64x64"
+      href="/assets/app-icon-exports/AppIcon-macOS-Default-32x32@2x.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      href="/assets/app-icon-exports/AppIcon-macOS-Default-128x128@2x.png"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="key" />
+    <meta property="og:url" content="https://key.tvr.works/" />
+    <meta property="og:title" content="key — macOS CLI secret and OTP manager" />
+    <meta
+      property="og:description"
+      content="key is a CLI secret and OTP manager — each item is stored as its own encrypted file on disk, named, organized, and backed up however you want. The vault key lives in your Keychain, released through macOS user presence authentication — Apple Watch, Touch ID, or your system password."
+    />
+    <meta property="og:image" content="https://key.tvr.works/assets/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="key — macOS CLI secret and OTP manager" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="key — macOS CLI secret and OTP manager" />
+    <meta
+      name="twitter:description"
+      content="key is a CLI secret and OTP manager — each item is stored as its own encrypted file on disk, named, organized, and backed up however you want. The vault key lives in your Keychain, released through macOS user presence authentication — Apple Watch, Touch ID, or your system password."
+    />
+    <meta name="twitter:image" content="https://key.tvr.works/assets/og.png" />
+    <meta name="twitter:image:alt" content="key — macOS CLI secret and OTP manager" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -35,7 +66,7 @@
       <nav class="nav-links">
         <a href="#how">The difference</a>
         <a href="#cli">Install &amp; use</a>
-        <a href="https://github.com/tvanreenen/key" rel="noopener">GitHub</a>
+        <a href="https://github.com/tvanreenen/key">GitHub</a>
       </nav>
     </header>
 
@@ -53,10 +84,10 @@
               <span class="hero-title-accent">Native macOS Security.</span>
             </h1>
             <p class="hero-lead">
-              <code>key</code> is a CLI secret manager — each secret stored as its own encrypted file on your disk, named, organized, and backed up however you want. The vault key lives in your Keychain, released through macOS user presence authentication — Apple&nbsp;Watch, Touch&nbsp;ID, or your system password.
+              <code>key</code> is a CLI secret and OTP manager — each item is stored as its own encrypted file on disk, named, organized, and backed up however you want. The vault key lives in your Keychain, released through macOS user presence authentication — Apple&nbsp;Watch, Touch&nbsp;ID, or your system password.
             </p>
             <div class="hero-cta">
-              <a class="btn btn-primary" href="https://github.com/tvanreenen/key" rel="noopener">View on GitHub</a>
+              <a class="btn btn-primary" href="https://github.com/tvanreenen/key">View on GitHub</a>
             </div>
           </div>
 
@@ -111,11 +142,12 @@
                           </span>
                         </div>
                       </div>
-                      <h3 class="touch-sheet-title" data-touch-title>Key Agent</h3>
-                      <p class="touch-sheet-line touch-sheet-line--primary" data-touch-line1>
-                        Key Agent is trying to Unlock key vault..
+                      <h3 class="touch-sheet-title">Key Agent</h3>
+                      <p class="touch-sheet-line touch-sheet-line--primary">
+                        Key Agent is trying to <span data-touch-operation>decrypt</span>
+                        "<span data-touch-name>github/pat</span>" from the vault.
                       </p>
-                      <p class="touch-sheet-line touch-sheet-line--secondary" data-touch-line2>
+                      <p class="touch-sheet-line touch-sheet-line--secondary">
                         Touch ID or enter your password to allow this.
                       </p>
                       <div class="touch-sheet-actions">
@@ -244,16 +276,19 @@ cask "key"</code></pre>
 
               <p class="cli-help-label">Commands</p>
               <dl class="cli-help-list">
-                <div><dt><code>get &lt;name&gt;</code></dt><dd>Print a secret.</dd></div>
-                <div><dt><code>copy &lt;name&gt;</code></dt><dd>Copy a secret to the clipboard.</dd></div>
-                <div><dt><code>add &lt;name&gt;</code></dt><dd>Add a new secret from stdin or prompt.</dd></div>
-                <div><dt><code>edit &lt;name&gt;</code></dt><dd>Update a secret from stdin or prompt.</dd></div>
+                <div><dt><code>get &lt;name&gt;</code></dt><dd>Print a secret or TOTP code.</dd></div>
+                <div><dt><code>copy &lt;name&gt;</code></dt><dd>Copy a secret or TOTP code.</dd></div>
+                <div><dt><code>add [--totp] &lt;name&gt;</code></dt><dd>Add a secret from stdin or prompt.</dd></div>
+                <div><dt><code>edit [--totp] &lt;name&gt;</code></dt><dd>Update a secret from stdin or prompt.</dd></div>
                 <div><dt><code>duplicate &lt;src&gt; &lt;dst&gt; [--force]</code></dt><dd>Duplicate an entry.</dd></div>
                 <div><dt><code>rename &lt;src&gt; &lt;dst&gt; [--force]</code></dt><dd>Rename an entry.</dd></div>
-                <div><dt><code>remove &lt;name&gt; [--force]</code></dt><dd>Remove a secret.</dd></div>
+                <div><dt><code>remove &lt;name&gt; [--force]</code></dt><dd>Remove an entry.</dd></div>
                 <div><dt><code>list</code></dt><dd>List stored secrets.</dd></div>
-                <div><dt><code>unlock</code></dt><dd>Warm the helper session.</dd></div>
-                <div><dt><code>lock</code></dt><dd>Clear the helper session and stop the helper.</dd></div>
+                <div><dt><code>unlock</code></dt><dd>Unlock the vault.</dd></div>
+                <div><dt><code>lock</code></dt><dd>Lock the vault.</dd></div>
+                <div><dt><code>config get &lt;config-name&gt;</code></dt><dd>Print a config setting.</dd></div>
+                <div><dt><code>config set &lt;config-name&gt; &lt;value&gt;</code></dt><dd>Update a config setting.</dd></div>
+                <div><dt><code>config list</code></dt><dd>List config settings.</dd></div>
                 <div><dt><code>version [--json]</code></dt><dd>Print the CLI version.</dd></div>
                 <div><dt><code>help</code></dt><dd>Show this help.</dd></div>
               </dl>
@@ -262,6 +297,12 @@ cask "key"</code></pre>
               <dl class="cli-help-list">
                 <div><dt><code>--force</code></dt><dd>Skip overwrite or removal confirmation.</dd></div>
                 <div><dt><code>--json</code></dt><dd>Print version info as JSON.</dd></div>
+                <div><dt><code>--totp</code></dt><dd>Treat add/edit input as a Base32 TOTP seed.</dd></div>
+              </dl>
+
+              <p class="cli-help-label">Config names</p>
+              <dl class="cli-help-list">
+                <div><dt><code>vault-dir</code></dt><dd>Effective vault directory.</dd></div>
               </dl>
             </div>
           </article>
@@ -290,7 +331,7 @@ key remove "$(key list | fzf)"</code></pre>
           </article>
           <article class="feature-card compose-card">
             <h3>Inject into your dev environment</h3>
-            <pre><code># .env.schema
+            <pre><code># .env.schema from https://varlock.dev/
 DATABASE_URL=exec(`key get db/prod/url`)
 API_TOKEN=exec(`key get services/stripe/key`)
 

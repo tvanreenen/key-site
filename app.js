@@ -10,9 +10,8 @@
   const promptEl = document.querySelector("[data-prompt]");
   const caretEl = document.querySelector("[data-caret]");
   const touchSheet = document.querySelector("[data-touch-sheet]");
-  const touchTitle = document.querySelector("[data-touch-title]");
-  const touchLine1 = document.querySelector("[data-touch-line1]");
-  const touchLine2 = document.querySelector("[data-touch-line2]");
+  const touchOperation = document.querySelector("[data-touch-operation]");
+  const touchName = document.querySelector("[data-touch-name]");
   const touchIcon = document.querySelector("[data-touch-icon]");
   const watchFrame = document.querySelector("[data-watch-frame]");
   const watchApprove = document.querySelector("[data-watch-approve]");
@@ -214,12 +213,10 @@
       .replace(/"/g, "&quot;");
   }
 
-  async function showAuth({ title, line1, line2 } = {}) {
+  async function showAuth({ operation, name } = {}) {
     if (instantDemo) return;
-    if (touchTitle) touchTitle.textContent = title ?? "Key Agent";
-    if (touchLine1) touchLine1.textContent = line1 ?? "";
-    if (touchLine2)
-      touchLine2.textContent = line2 ?? "Touch ID or enter your password to allow this.";
+    if (touchOperation) touchOperation.textContent = operation ?? "decrypt";
+    if (touchName) touchName.textContent = name ?? "github/pat";
     if (touchSheet) {
       if (DEBUG_WATCH_LAYOUT) {
         touchSheet.hidden = true;
@@ -296,9 +293,8 @@
       command: "key get github/pat",
       needAuth: true,
       auth: {
-        title: "Key Agent",
-        line1: "Key Agent is trying to decrypt “github/pat” from the vault.",
-        line2: "Touch ID or enter your password to allow this.",
+        operation: "decrypt",
+        name: "github/pat",
       },
       output: ["ghp_demo_4xQ8vN2pL1mR7sT9uW0"],
     },
@@ -311,7 +307,7 @@
     {
       kind: "normal",
       promptHtml: promptPlain,
-      command: "openssl rand -base64 32 | key update wifi/pwd",
+      command: "openssl rand -base64 32 | key edit wifi/pwd",
       output: [],
     },
   ];
