@@ -45,8 +45,9 @@ export function Hero() {
           <span>Your CLI.</span>
         </h1>
         <p className="hero-description">
-          A password and secret manager for your Mac’s command line, with native
-          authentication and encrypted sync through a folder you choose.
+          A password and secret vault for your Mac’s terminal. Unlock it with
+          Touch ID, Apple Watch, or your Mac password, and keep your encrypted
+          vault in a folder you choose.
         </p>
         <a className="text-link hero-install" href="#install">
           Install key <ArrowDown aria-hidden="true" />

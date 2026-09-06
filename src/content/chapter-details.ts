@@ -1,5 +1,4 @@
-import type { Chapter } from "./chapters"
-import { projectUrl } from "./chapters"
+import { projectUrl, type Chapter } from "./chapters"
 
 interface DetailSection {
   heading: string
@@ -19,82 +18,83 @@ interface ChapterDetail {
 export const chapterDetails: Record<Chapter["id"], ChapterDetail> = {
   use: {
     intro:
-      "A secret can start at a prompt, arrive through a pipe, and leave as input to another tool. Key fits into those paths while keeping vault access behind your Mac’s authentication.",
+      "Send secrets into Key through standard input, and pass stored values to other tools. An unlocked session can serve a sequence of commands without asking you to approve each one.",
     sections: [
       {
         heading: "Save a value without putting it in the command.",
         paragraphs: [
-          "Run key add with an entry name and Key asks for the value with typing hidden. Or send the value through standard input. The command you type contains the name and the operation, so the secret itself does not need to become a command-line argument or a literal in shell history.",
-          "Password generation stays with the tools you already use. Here, OpenSSL generates a random value and passes it directly to Key:",
+          "Key accepts a hidden prompt or standard input. A generator can pass its output directly into the vault, keeping the secret itself out of command arguments and shell history.",
+          "For example, OpenSSL generates a random value and sends it to a named entry:",
         ],
         code: "openssl rand -base64 32 | key add services/api",
       },
       {
-        heading: "Output that belongs in a pipeline.",
+        heading: "Keep the value intact through a pipeline.",
         paragraphs: [
-          "key get writes the value to standard output. When that output goes to a pipe or file, Key adds no presentation newline; prompts and errors use standard error. For ordinary secret entries, piped input preserves its UTF-8 text, including line breaks. Those details keep a stored value from changing simply because it passed through the CLI.",
-          "key list returns entry names, which makes it useful as input to a selector. With fzf installed, this command lets you choose an entry and copy its value:",
+          "key get sends the value to standard output. For a pipe or file, it adds no presentation newline; prompts and errors use standard error. Ordinary secret entries preserve their UTF-8 input, including line breaks.",
+          "key list returns entry names. With fzf installed, you can select an entry and copy its value in one command:",
         ],
         code: 'key copy "$(key list | fzf)"',
       },
       {
-        heading: "One-time codes use the same workflow.",
+        heading: "Know where plaintext goes.",
         paragraphs: [
-          "Save an authenticator’s Base32 setup secret with --totp. Key keeps that seed encrypted and generates the current time-based one-time password, or TOTP, when you read or copy the entry. The changing code and the password you use beside it can live behind the same vault access model.",
-          "Provide the Base32 secret from the authenticator setup, rather than a full otpauth:// URL.",
-        ],
-        code: "key add --totp github/mfa\nkey copy github/mfa",
-      },
-      {
-        heading: "Unlock once, work across commands.",
-        paragraphs: [
-          "The CLI sends vault operations to Key Agent, the signed background service. An unlocked session can be reused across separate invocations, so a short sequence of commands does not need a new authentication prompt at every step. Run key lock to end that session on this Mac.",
-          "Once you print, copy, or hand a value to another program, that destination has the plaintext. Locking the vault ends access through Key; it does not erase terminal output or clipboard contents.",
+          "Once you print, copy, or pass a value to another program, that destination has the plaintext. Running key lock ends the local unlocked session; it does not erase terminal output or clipboard contents.",
         ],
       },
     ],
     references: [
-      { label: "Command reference", href: `${projectUrl}#command-reference` },
+      {
+        label: "Command reference",
+        href: `${projectUrl}#command-reference`,
+      },
+      {
+        label: "Authentication and sessions",
+        href: `${projectUrl}#how-access-works`,
+      },
     ],
   },
   authenticate: {
     intro:
-      "In a device-enrolled vault, unlocking starts with keys that belong to this Mac. macOS requires your presence to use them, and Key Agent turns that approval into a bounded session.",
+      "An enrolled Mac is a Mac you have explicitly approved to access the vault. Its private keys are protected by the Secure Enclave, and macOS enforces your approval when those keys are used.",
     sections: [
       {
-        heading: "Your Mac brings the available ways to approve.",
+        heading: "Approve access through macOS.",
         paragraphs: [
-          "User presence means macOS asks you to authorize protected key access using the authentication available on your Mac. It can offer Touch ID while looking for a nearby paired Apple Watch, with your Mac password as a fallback. The choices depend on your hardware and settings.",
-          "Key attaches that requirement to the protected private keys themselves. macOS enforces it when those keys are used. There is no separate vault password to remember, and your Mac password is not used to derive the vault’s encryption key.",
+          "User presence means macOS asks you to authorize protected key access. It can offer Touch ID while looking for a nearby paired Apple Watch, with your Mac password as a fallback. The available methods depend on your hardware and settings.",
+          "Key attaches this requirement to the protected private keys themselves. There is no separate vault password to remember, and your Mac password is not used to derive the vault’s encryption key.",
         ],
       },
       {
         heading: "Two private keys, each bound to this Mac.",
         paragraphs: [
-          "Each enrolled Mac creates two P-256 private keys protected by the Secure Enclave, Apple’s hardware security subsystem. A signing key authorizes changes to which devices can access the vault. A separate key-agreement key opens the vault-key wrapper addressed to this Mac.",
-          "Those private keys cannot be exported as usable keys for another Mac. The folder carries the public information needed to recognize devices and encrypt for them. Copying that folder, or signing into the same cloud account, does not enroll another computer.",
+          "Each enrolled Mac creates two Secure Enclave P-256 private keys. A signing key authorizes changes to device access. A separate key-agreement key opens an encrypted copy of the vault key addressed to that Mac, called a wrapper.",
+          "These private keys cannot be exported as usable keys for another Mac. Copying the vault folder, or signing into the same cloud account, does not enroll another computer.",
         ],
       },
       {
         heading: "A random vault key, encrypted for each device.",
         paragraphs: [
-          "The vault has a random 256-bit encryption key. Key uses CryptoKit’s HPKE, Hybrid Public Key Encryption, to wrap it separately for every active Mac, combining P-256 key agreement, HKDF-SHA256 key derivation, and AES-256-GCM encryption.",
-          "Each wrapper is cryptographically bound to the vault, the exact vault key, its recipient, and the device-access change that created it. Moving a wrapper between those contexts does not create valid access.",
-          "Secret values are sealed with AES-256-GCM. Their vault, entry identity, name, type, and revision are authenticated alongside the ciphertext, so the checks cover both the encrypted value and where it belongs.",
+          "The vault uses a random 256-bit key. CryptoKit’s HPKE, Hybrid Public Key Encryption, wraps it separately for each active Mac using P-256 key agreement, HKDF-SHA256 key derivation, and AES-256-GCM encryption.",
+          "Each wrapper is bound to its vault, key, recipient, and the device-access change that created it. Moving it into a different context does not create valid access.",
+          "Secret values are sealed with AES-256-GCM. Their vault, entry identity, name, type, and revision are authenticated alongside the ciphertext, tying each value to where it belongs.",
         ],
       },
       {
-        heading: "The session has a defined lifetime.",
+        heading: "The unlocked session expires after inactivity.",
         paragraphs: [
-          "The Secure Enclave protects the device private keys. Vault decryption happens in Key Agent, which holds the unwrapped vault key in memory during the session. The device-enrolled model does not persist that raw key in the synced folder or as a reusable Keychain item.",
-          "The session expires after 15 minutes without vault-key use. Using the key extends that window; key lock or a helper restart ends it. Ordinary commands reuse the session, so approval is not requested separately for every secret read. An unlocked session is not a defense against malicious software acting through an authorized CLI on your Mac.",
+          "Key Agent, the signed background service, holds the unwrapped vault key in memory during a session. The raw key is not saved in the synced folder or as a reusable Keychain item. The Secure Enclave protects the device private keys; Key Agent performs vault decryption.",
+          "The session expires after 15 minutes without vault-key use. Using the key extends that window; key lock or an agent restart ends it. Commands reuse the session, so approval is not requested for every read. Other software able to use the authorized CLI can also use that unlocked access.",
         ],
       },
     ],
     scope:
-      "This describes device-enrolled vaults. Older Keychain-backed vaults use a different key-storage model; moving to device enrollment is an explicit migration.",
+      "These protections describe device-enrolled vaults. Existing Keychain-backed vaults require an explicit migration.",
     references: [
-      { label: "Key’s access model", href: `${projectUrl}#how-access-works` },
+      {
+        label: "Access and migration guidance",
+        href: `${projectUrl}#how-access-works`,
+      },
       {
         label: "Apple’s authentication policy",
         href: "https://developer.apple.com/documentation/LocalAuthentication/LAPolicy/deviceOwnerAuthentication",
@@ -103,47 +103,45 @@ export const chapterDetails: Record<Chapter["id"], ChapterDetail> = {
   },
   sync: {
     intro:
-      "Your provider moves the files. In a device-enrolled vault, Key independently checks their contents, their history, and the authority behind changes before using them.",
+      "Suppose your provider delivers a new history record before the encrypted entry it references. Key keeps the last verified state and pauses operations that need the missing file. Arrival order does not decide what the vault trusts.",
     sections: [
       {
-        heading: "A vault records how it changed.",
+        heading: "Every change extends a verified history.",
         paragraphs: [
-          "A saved change creates new encrypted objects and a new manifest: a record of the vault’s entries and the history that led to them. Existing versions stay immutable. SHA-256 digests identify exact file contents, while HMAC-SHA256 authenticates the manifest. Changes to device access also require an active Mac’s digital signature.",
-          "That gives Key evidence to check beyond a filename or modification date. An encrypted entry must match the exact object and revision its authenticated manifest describes before Key releases its value.",
+          "A saved change creates new encrypted objects and a manifest: an authenticated record of the vault’s entries and their history. Existing versions stay immutable. SHA-256 digests identify exact file contents; HMAC-SHA256 authenticates the manifest. Changes to device access also require an active Mac’s digital signature.",
+          "Before releasing a value, Key checks that the encrypted entry matches the exact object and revision in its authenticated manifest.",
         ],
       },
       {
-        heading: "Arrival order does not decide what is trusted.",
+        heading: "Each Mac remembers what it has verified.",
         paragraphs: [
-          "Each Mac keeps a local checkpoint of the exact vault history it has already verified. New history must connect to that checkpoint and pass authentication. A returning Mac follows device-access and key changes in order, verifying each transition before opening its next wrapped key.",
-          "If a manifest arrives before an entry it references, Key treats the state as incomplete. It preserves the previous checkpoint and pauses operations that need the missing files. A newer timestamp cannot make incomplete data valid, and an older copy cannot silently reset what this Mac already trusts.",
-          "An explicit --allow-stale read can use the last complete version already verified on this Mac. It cannot authorize a write or bypass failed security checks.",
+          "Each Mac keeps a local checkpoint of its verified history. New history must connect to that checkpoint and pass authentication. A returning Mac follows device-access and key changes in order, verifying each transition before opening its next wrapped key.",
+          "A newer timestamp cannot make incomplete data valid, and an older copy cannot silently reset what this Mac trusts. An explicit --allow-stale read can use its last complete verified version. It cannot authorize a write or bypass failed security checks.",
         ],
       },
       {
-        heading: "Competing edits stay visible.",
+        heading: "Key detects competing histories.",
         paragraphs: [
-          "Two Macs can each save a change before receiving the other’s update. If those changes produce competing histories, Key detects the divergence and pauses ordinary reads and writes. The immutable files preserve both branches, and an explicit stale read can still use this Mac’s last complete verified state. The provider’s last-write timestamp does not choose the winning secret.",
-          "Changes to device access have a stricter boundary. Competing enrollment, revocation, or key transitions are security conflicts and are never automatically merged as ordinary content edits.",
+          "Two Macs can save changes before receiving each other’s updates. If those changes create competing histories, Key pauses ordinary reads and writes. Immutable files preserve both branches; an explicit stale read can use this Mac’s last complete verified state. The provider’s last-write timestamp does not choose the winning secret.",
+          "Competing enrollment, revocation, or key transitions are security conflicts. They are never automatically merged as ordinary content edits.",
         ],
       },
       {
         heading: "A write finishes only after verification.",
         paragraphs: [
-          "For ordinary writes, Key stages encrypted files, publishes entries before their manifest, and verifies the saved objects before advancing its local checkpoint. That final update is conditional on the previous checkpoint still being the one the operation started from.",
-          "Local recovery records let Key inspect an interrupted transaction and retain the previous state or finish a verified new one. Missing or contradictory evidence stops the operation. It does not trigger creation of an empty replacement vault.",
+          "Key stages encrypted files, publishes entries before their manifest, and verifies the saved objects before advancing its checkpoint. That final update succeeds only if the checkpoint still matches the one the operation started from.",
+          "Local recovery records let Key inspect an interrupted write and retain the previous state or finish a verified new one. Missing or contradictory evidence stops the operation; it does not cause an empty replacement vault to be created.",
         ],
       },
       {
-        heading: "The provider transports data; Key owns these decisions.",
+        heading: "Verification is independent of the provider.",
         paragraphs: [
-          "Encryption, history verification, conflict handling, and device authorization live in Key. They do not rely on an iCloud-specific service. Local APFS and iCloud Drive have been directly qualified; other folder-based providers still need compatible filesystem behavior and testing.",
-          "These checks can detect unacceptable data, but they cannot force a provider to deliver missing files or replace a backup. Secret values are encrypted; entry names and structural metadata remain visible in storage.",
+          "Encryption, history checks, and device authorization happen in Key. Local APFS and iCloud Drive have been directly qualified; other folder-based providers still need compatible filesystem behavior and testing.",
+          "Verification cannot make a provider deliver missing files or replace a backup. Secret values are encrypted; entry names and structural metadata remain visible in storage.",
         ],
       },
     ],
-    scope:
-      "These history and synchronization protections belong to device-enrolled vaults. Older Keychain-backed vaults use individually encrypted named files.",
+    scope: "These history protections apply to device-enrolled vaults.",
     references: [
       {
         label: "Provider support and conflicts",
@@ -153,41 +151,41 @@ export const chapterDetails: Record<Chapter["id"], ChapterDetail> = {
   },
   recover: {
     intro:
-      "A second enrolled Mac preserves a way to authorize a replacement. It has its own device keys and equal authority, so continuity does not depend on keeping the first Mac forever.",
+      "With a surviving enrolled Mac and usable vault files, you can authorize a replacement. Every active Mac has equal authority; the first computer you enrolled has no special role that must survive.",
     sections: [
       {
         heading: "Keep access on more than one Mac.",
         paragraphs: [
-          "Every active Mac in a device-enrolled vault can approve a new Mac or revoke a lost one after authentication and review. There is no special original computer that must remain available. With one active Mac and usable vault files, you can add a replacement without exporting the surviving Mac’s private keys.",
-          "Keep at least two Macs enrolled, and keep backups of the vault files. An enrolled Mac preserves authority to open the vault; a file backup preserves the data. You need both access and usable data to continue.",
+          "An enrolled Mac is one you have approved to open the vault. After authentication and review, any active Mac can approve a replacement or revoke a lost device without exporting its own private keys.",
+          "Keep at least two Macs enrolled and back up the vault files. Another enrolled Mac preserves access; a backup preserves the data. Recovery needs both.",
         ],
         code: "key share devices",
       },
       {
-        heading: "Enrollment proves which Mac you are adding.",
-        paragraphs: [
-          "A new Mac creates its own Secure Enclave identity and answers a short-lived invitation. You compare the displayed device pair and comparison code on both Macs before approving. The invitation lasts 10 minutes, and the approval is bound to that exact exchange.",
-          "The resulting access change is signed by the approving Mac, and the vault key is wrapped for the approved identity. A provider can carry those messages, but copying them cannot substitute a different device into the agreement.",
-        ],
-      },
-      {
         heading: "Changing access changes the encryption.",
         paragraphs: [
-          "Adding or removing a Mac creates a new random vault key and re-encrypts the complete current snapshot. Each remaining active Mac receives its own wrapper for that new key. A newly enrolled Mac receives current data without receiving the old encryption keys.",
-          "Revocation leaves the removed Mac without a wrapper for the new key, preventing it from reading the new current snapshot and future changes. It cannot erase old secrets, exports, or encrypted history that Mac already had the keys to open.",
+          "Adding or removing a Mac creates a new random vault key and re-encrypts the complete current snapshot. Each active Mac receives its own encrypted copy of that key. A newly enrolled Mac receives current data without receiving old encryption keys.",
+          "A revoked Mac receives no copy of the new key, preventing it from reading the new snapshot and future changes. Revocation cannot erase old secrets, exports, or history that Mac already had the keys to open.",
         ],
       },
       {
-        label: "Planned",
-        heading: "Physical recovery keys for the loss of every Mac.",
+        heading: "Enrollment proves which Mac you are adding.",
         paragraphs: [
-          "The next recovery direction is PIV smart-card hardware, including compatible YubiKeys. The design under evaluation uses independent primary and backup tokens, registered before a loss and kept separately. Each would hold its own non-exportable recovery key; either could provide recovery authority alongside the encrypted vault files.",
-          "A PIN would activate the physical token, rather than serve as a password for decrypting a copied vault. This is a separate recovery path from Touch ID, Apple Watch approval, or a security key’s FIDO login function. Hardware compatibility, PIN and touch behavior, and replacement procedures still need physical qualification.",
+          "A new Mac creates its own Secure Enclave identity and answers an invitation that expires after 10 minutes. You compare the displayed device pair and comparison code on both Macs before approving. Approval is bound to that exact exchange.",
+          "The approving Mac signs the access change, and the vault key is encrypted for the approved identity. Copying the exchanged messages cannot substitute a different device.",
         ],
+      },
+      {
+        heading: "Physical keys for recovery after every Mac is lost.",
+        paragraphs: [
+          "Planned PIV hardware recovery would let a registered physical key authorize recovery alongside the encrypted vault files. The proposed design uses independent primary and backup tokens, kept separately; either would hold its own non-exportable recovery key.",
+          "Compatible YubiKeys are candidates for this path. Hardware support and PIN and touch behavior still require validation; physical-key recovery is not available in the current release.",
+        ],
+        label: "Planned",
       },
     ],
     scope:
-      "Available today: continuity through a surviving enrolled Mac. Recovery after the last enrolled Mac is lost is not yet available. If every enrolled Mac and its access keys are lost, a vault-folder backup, your Mac password, or your cloud account cannot restore access.",
+      "Recovery today requires a surviving enrolled Mac. If every enrolled Mac and its access keys are lost, a vault-folder backup, your Mac password, or your cloud account cannot restore access.",
     references: [
       {
         label: "Enrollment and device continuity",
@@ -196,6 +194,10 @@ export const chapterDetails: Record<Chapter["id"], ChapterDetail> = {
       {
         label: "Current recovery limits",
         href: `${projectUrl}#install-and-choose-a-release-channel`,
+      },
+      {
+        label: "Hardware recovery design",
+        href: `${projectUrl}/blob/main/docs/offline-recovery-models.md`,
       },
     ],
   },

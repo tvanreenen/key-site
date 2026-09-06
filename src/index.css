@@ -527,7 +527,7 @@ a.text-link[href^="#"]:hover svg {
 
 /* The overview and article share a native scrolling surface on desktop. */
 .chapter-stage {
-  --reader-height: 690px;
+  --reader-height: 720px;
   --reader-gutter: clamp(36px, 4.3vw, 76px);
 }
 .chapter-reader {
@@ -685,14 +685,6 @@ a.text-link[href^="#"]:hover svg {
   font-size: 15px;
   line-height: 1.8;
 }
-.site-footer {
-  min-height: 120px;
-  padding-block: 30px;
-}
-.site-footer .wordmark {
-  font-size: 28px;
-}
-
 @media (min-width: 1800px) {
   .page-gutter {
     padding-inline: max(88px, calc((100vw - 1624px) / 2));
@@ -898,16 +890,6 @@ a.text-link[href^="#"]:hover svg {
   }
   .install-note {
     font-size: 14px;
-  }
-  .site-footer {
-    padding-block: 28px;
-    gap: 20px;
-  }
-  .site-footer > div {
-    gap: 18px;
-  }
-  .site-footer p {
-    font-size: 12px;
   }
 }
 

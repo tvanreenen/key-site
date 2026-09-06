@@ -90,3 +90,20 @@ actual command is `key remove`, without the force flag.
 All 16 tests pass, including automated accessibility checks for all six
 references and their articles, manual selection, the two Add variants, and
 the removal explanation. Build, TypeScript, and lint also pass.
+
+## Editorial refinement
+
+The hero identifies Key as a password and secret vault before describing Mac
+authentication and folder storage. Overview copy now names the action or access
+benefit directly; the authentication headline remains “Your presence opens it.”
+The site footer was removed, and installation links now lead to the README’s
+installation and vault setup guidance. Metadata follows the same vault framing.
+
+The Use article focuses on composition instead of repeating the walkthrough.
+Authentication defines enrollment and user presence before describing the keys.
+Sync opens with an out-of-order delivery example, and recovery explains access
+continuity before enrollment mechanics. The evidence and release boundaries
+above remain applicable; PIV hardware recovery still requires qualification and
+is visibly planned. No new recovery or automatic conflict resolution capability
+is claimed. The desktop reading pane allows room for the revised headings while
+keeping Play and Go deeper aligned.

@@ -3,16 +3,17 @@ export const chapters = [
     id: "use",
     number: "01",
     label: "Use",
-    title: "At home in your shell.",
-    description: "Add, retrieve, and update secrets from your terminal.",
-    detail: "Pipes, TOTP, and everyday commands",
+    title: "Secrets in your terminal.",
+    description: "Store passwords, API keys, and authenticator secrets.",
+    detail: "Use Key in pipes and scripts",
   },
   {
     id: "authenticate",
     number: "02",
     label: "Authenticate",
     title: "Your presence opens it.",
-    description: "Touch ID. Apple Watch. Your Mac password.",
+    description:
+      "Approve access with Touch ID, Apple Watch, or your Mac password.",
     detail: "Device keys and the unlocked session",
   },
   {
@@ -21,15 +22,16 @@ export const chapters = [
     label: "Sync",
     title: "Your folder. Your choice.",
     description:
-      "Your provider moves encrypted files. Key verifies what arrives.",
+      "Your file sync provider moves encrypted files. Key controls access and verifies every change.",
     detail: "History, conflicts, and checkpoints",
   },
   {
     id: "recover",
     number: "04",
     label: "Recover",
-    title: "Plan for a lost Mac.",
-    description: "Keep another enrolled Mac. Keep a way forward.",
+    title: "Keep access when a Mac is lost.",
+    description:
+      "With another enrolled Mac and your vault files, you can authorize a replacement.",
     detail: "Device continuity and planned hardware recovery",
   },
 ] as const
@@ -39,3 +41,5 @@ export type Chapter = (typeof chapters)[number]
 export const projectUrl = "https://github.com/tvanreenen/key"
 export const installCommand =
   "brew tap tvanreenen/tap && brew install --cask key"
+
+export const setupUrl = `${projectUrl}#install-and-choose-a-release-channel`

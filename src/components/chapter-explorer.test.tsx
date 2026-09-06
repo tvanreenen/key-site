@@ -63,13 +63,13 @@ describe("chapter interactions", () => {
       render(<ChapterExplorer />)
       expect(
         screen.getByRole("article", {
-          name: "Pipes, TOTP, and everyday commands",
+          name: "Use Key in pipes and scripts",
         })
       ).toBeTruthy()
       await user.click(screen.getByRole("button", { name: /Go deeper/ }))
       expect(document.activeElement).toBe(
         screen.getByRole("heading", {
-          name: "Pipes, TOTP, and everyday commands",
+          name: "Use Key in pipes and scripts",
         })
       )
       expect(scrollTo).toHaveBeenLastCalledWith(
@@ -78,7 +78,9 @@ describe("chapter interactions", () => {
       expect(screen.queryByRole("dialog")).toBeNull()
       await user.click(screen.getByRole("button", { name: "Back to overview" }))
       expect(document.activeElement).toBe(
-        screen.getByRole("heading", { name: "At home in your shell." })
+        screen.getByRole("heading", {
+          name: "Secrets in your terminal.",
+        })
       )
       expect(screen.getByRole("button", { name: "Play chapters" })).toBeTruthy()
     }

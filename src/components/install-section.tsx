@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useRef, useState } from "react"
 import { ArrowUpRight, Check, Copy } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { installCommand, projectUrl } from "@/content/chapters"
+import { installCommand, setupUrl } from "@/content/chapters"
 
 export function InstallSection() {
   const [feedback, setFeedback] = useState<"idle" | "copied" | "failed">("idle")
@@ -26,12 +26,12 @@ export function InstallSection() {
       aria-labelledby="install-title"
     >
       <div>
-        <p className="eyebrow text-muted-foreground">Get started / macOS 14+</p>
+        <p className="eyebrow text-muted-foreground">macOS 14+</p>
         <h2 id="install-title" className="install-title">
           Install key.
         </h2>
-        <a className="text-link mt-8" href={`${projectUrl}#readme`}>
-          Read the documentation <ArrowUpRight aria-hidden="true" />
+        <a className="text-link mt-8" href={setupUrl}>
+          Set up your vault <ArrowUpRight aria-hidden="true" />
         </a>
       </div>
       <div className="install-instructions">
@@ -79,8 +79,13 @@ export function InstallSection() {
               : ""}
         </output>
         <p className="install-note text-muted-foreground">
-          Open <span className="text-foreground">Key.app</span> once to register
-          Key Agent with macOS. Then follow the setup guide for your vault.
+          After installing, open{" "}
+          <span className="text-foreground">Key.app</span> once to enable the
+          CLI, then follow the{" "}
+          <a className="underline underline-offset-4" href={setupUrl}>
+            vault setup guide
+          </a>
+          .
         </p>
       </div>
     </section>
