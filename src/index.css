@@ -171,6 +171,7 @@ a.text-link:hover svg {
 }
 .site-header {
   height: 104px;
+  background: linear-gradient(180deg, #08080b90, #08080b60 70%, transparent);
 }
 .hero-content {
   padding-top: clamp(68px, 9vh, 112px);
@@ -529,7 +530,7 @@ a.text-link:hover svg {
     padding-inline: 5px;
   }
   .hero-title {
-    font-size: clamp(52px, 12.1vw, 89px);
+    font-size: clamp(44px, 13.3vw, 89px);
     line-height: 1.01;
     letter-spacing: -0.062em;
   }
@@ -630,6 +631,8 @@ a.text-link:hover svg {
   .reading-dialog {
     position: fixed;
     inset: 0;
+    --tw-translate-x: 0px;
+    --tw-translate-y: 0px;
     transform: none;
     translate: none;
     width: 100%;
