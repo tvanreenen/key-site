@@ -3,9 +3,17 @@ import {
   type AuthenticationMethod,
 } from "@/content/authentication-demo"
 
-// Illustrations share a coordinate system and stroke treatment. They are not
-// OS controls and never request credentials or authentication.
+// The supplied Touch ID mark and device illustrations are decorative, not
+// OS controls. They never request credentials or authentication.
 function AuthenticationArtwork({ method }: { method: AuthenticationMethod }) {
+  if (method === "touch") {
+    return (
+      <span className="auth-artwork auth-artwork-touch" aria-hidden="true">
+        <img src="/assets/touch-id-mark.png" width="270" height="270" alt="" />
+      </span>
+    )
+  }
+
   return (
     <svg
       className={`auth-artwork auth-artwork-${method}`}
@@ -17,23 +25,6 @@ function AuthenticationArtwork({ method }: { method: AuthenticationMethod }) {
       strokeLinejoin="round"
       aria-hidden="true"
     >
-      {method === "touch" && (
-        <>
-          <circle className="auth-metal" cx="90" cy="90" r="68" />
-          <circle className="auth-edge" cx="90" cy="90" r="63" />
-          <g className="auth-fingerprint">
-            <path d="M61 76c4-13 15-21 29-21s26 9 30 22" />
-            <path d="M53 92c0-23 16-39 37-39" opacity=".35" />
-            <path d="M61 94c0-17 12-29 29-29s29 12 29 29c0 9 1 16 5 23" />
-            <path d="M71 124c5-11 6-19 6-30a13 13 0 0 1 26 0c0 17 3 28 10 39" />
-            <path d="M60 116c6-10 7-15 7-22a23 23 0 0 1 46 0c0 11 2 20 7 29" />
-            <path d="M90 88c-3 0-5 3-5 6 0 18-3 31-10 43" />
-            <path d="M94 98c0 15 2 29 9 42" />
-            <path d="M85 140c3-6 5-12 6-18" />
-            <path d="M61 95c0 4-1 8-3 12" />
-          </g>
-        </>
-      )}
       {method === "watch" && (
         <>
           <path

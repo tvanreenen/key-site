@@ -516,8 +516,15 @@ a.text-link[href^="#"]:hover svg {
 .auth-edge {
   stroke: #454548;
 }
-.auth-fingerprint {
-  stroke-width: 1.7px;
+.auth-artwork-touch {
+  display: grid;
+  place-items: center;
+}
+.auth-artwork-touch img {
+  width: 70%;
+  max-width: 80px;
+  height: auto;
+  filter: brightness(0) invert(1);
 }
 .auth-watch-button {
   stroke: #dedee0;

@@ -115,7 +115,8 @@ surface. The caption explains that macOS can prompt Touch ID and Apple Watch
 at the same time, with either method approving the request and the Mac password
 as an alternative. This is a simultaneous choice, not a sequence of steps.
 
-The illustrations are inline SVGs with a shared monochrome treatment. There are
+The supplied Touch ID PNG is rendered white with CSS, preserving its original
+transparency and shape. Watch and password remain inline SVGs. There are
 no scene selectors, credential inputs, OS authentication calls, live announcements,
 or independent playback timers. All three methods remain visible on mobile.
 Protected-key policy and device dependencies remain grounded in the product
