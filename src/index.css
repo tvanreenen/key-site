@@ -363,7 +363,30 @@ a.text-link[href^="#"]:hover svg {
   padding-top: 23px;
 }
 .detail-trigger {
+  position: relative;
+  isolation: isolate;
   min-height: 64px;
+  background: transparent;
+}
+.detail-trigger::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -22px;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    #ffffff18 0%,
+    #ffffff08 40%,
+    transparent 72%
+  );
+  filter: blur(8px);
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+.detail-trigger:hover::before,
+.detail-trigger:focus-visible::before {
+  opacity: 1;
 }
 .detail-trigger:hover .text-link svg {
   transform: rotate(90deg);

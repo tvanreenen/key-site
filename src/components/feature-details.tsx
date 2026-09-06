@@ -29,7 +29,7 @@ export function FeatureDetails({
         render={
           <Button
             variant="ghost"
-            className="detail-trigger h-auto justify-start rounded-none p-0 text-left hover:bg-transparent"
+            className="detail-trigger h-auto justify-start rounded-none p-0 text-left"
           />
         }
       >
