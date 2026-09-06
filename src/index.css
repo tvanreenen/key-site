@@ -490,7 +490,7 @@ a.text-link[href^="#"]:hover svg {
   background: transparent;
 }
 .detail-trigger {
-  min-height: 64px;
+  min-height: 44px;
 }
 .detail-trigger::before,
 .playback-toggle::before,
@@ -829,9 +829,6 @@ a.text-link[href^="#"]:hover svg {
   .mobile-page-count {
     display: inline;
   }
-  .desktop-page-count {
-    display: none;
-  }
   .chapter-overview {
     min-height: 620px;
     padding: 34px 24px 28px;
@@ -861,9 +858,6 @@ a.text-link[href^="#"]:hover svg {
   }
   .chapter-footer {
     padding-top: 20px;
-  }
-  .detail-trigger > span > span:last-child {
-    font-size: 12px;
   }
   .chapter-stage {
     --reader-gutter: 24px;

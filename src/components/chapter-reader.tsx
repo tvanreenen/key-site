@@ -87,21 +87,10 @@ export function ChapterReader({
             onClick={() => jump(true)}
             aria-controls={`details-${chapter.id}`}
           >
-            <span>
-              <span className="text-link">
-                Go deeper <ArrowDown aria-hidden="true" />
-              </span>
-              <span className="mt-2 block text-sm font-normal whitespace-normal text-muted-foreground">
-                {chapter.detail}
-              </span>
+            <span className="text-link">
+              Go deeper <ArrowDown aria-hidden="true" />
             </span>
           </Button>
-          <span
-            className="desktop-page-count eyebrow shrink-0 text-muted-foreground"
-            aria-hidden="true"
-          >
-            {chapter.number} / 04
-          </span>
         </div>
       </div>
       <article
