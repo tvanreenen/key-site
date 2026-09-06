@@ -1,0 +1,69 @@
+# Go deeper content
+
+The four dialogs explain the CLI workflow, device-enrolled authentication, verified folder synchronization, and device continuity. The writing names mechanisms, explains their consequences, and states the limits that matter to the reader. The feature demonstrations outside the dialogs remain placeholders.
+
+Copy lives in `src/content/chapter-details.ts`. `src/components/feature-details.tsx` supplies the shared reading layout. The close control stays visible while the article scrolls; the scroll region is keyboard-focusable. Keep the introductory description short because it is also the dialog's accessible description.
+
+## Evidence reviewed
+
+Source repository: `/Users/tim.vanreenen/Code/key`, clean checkout at `2adba7de353acce68f5a3a0303259cba25d851f5`, inspected September 6, 2026. These are source and documentation observations, not a new execution or security audit of Key. The marketing site's build, accessibility checks, and browser checks are separate.
+
+### Use
+
+- `Sources/KeyCore/KeyCLIApplication.swift`: secure/piped input, get output formatting, copy dispatch, lock, and TOTP normalization.
+- `Sources/KeyCore/InputOutput.swift`: terminal echo suppression, UTF-8 piped input, and separate stdout/stderr.
+- `Sources/KeyCore/V3DeviceWrappedVaultMutationService.swift`: ordinary secrets preserve their input; TOTP seeds are normalized.
+- `README.md`, Quick start: supported command examples, external generator composition, optional fzf, Base32 seeds, and the absence of full otpauth URL support.
+
+The examples do not put a secret literal in command arguments. This does not promise that piping a value removes it from the memory or output of receiving programs. Locking does not erase previously revealed values.
+
+### Authenticate
+
+- `Sources/KeyCore/V3EnrollmentDeviceIdentityStore.swift`: separate Secure Enclave P-256 signing and key-agreement keys; `kSecAttrAccessibleWhenUnlockedThisDeviceOnly`; `.privateKeyUsage` and `.userPresence` access control.
+- `Sources/KeyCore/V3VaultKeyHPKE.swift`: CryptoKit HPKE with P-256, HKDF-SHA256, AES-256-GCM, and binding to vault ID, key ID, recipient, and authority transition.
+- `Sources/KeyCore/V3EntryCipher.swift` and `V3EntryAuthenticationContext.swift`: authenticated encryption tied to entry identity, name, type, revision, vault, and key.
+- `Sources/KeyCore/V3DeviceWrappedVaultKeySession.swift`: memory-only raw key storage, 15-minute inactivity expiration, invalidation, and refresh on key use.
+- `Sources/KeyCore/KeyServiceHandler.swift`: production composition of device-wrapped key access, reads, mutations, and catch-up.
+- [Apple authentication policy](https://developer.apple.com/documentation/LocalAuthentication/LAPolicy/deviceOwnerAuthentication): Touch ID and paired Watch discovery can run in parallel; password fallback and hardware/settings conditions apply.
+- [Apple Secure Enclave key protection](https://developer.apple.com/documentation/Security/protecting-keys-with-the-secure-enclave): private key material is not exportable in plaintext.
+
+Do not imply that the vault's AES operations happen inside the Secure Enclave, that the raw vault key never enters process memory, or that each secret read requires separate approval. The Enclave protects device private keys; Key Agent uses the unwrapped vault key in a bounded session. The Mac password authorizes key access and is not a vault-key derivation or catastrophe-recovery method.
+
+### Sync
+
+- `Sources/KeyCore/V3DeviceWrappedManifestEnvelope.swift`, `V3ManifestAuthentication.swift`, and `V3EntryCipher.swift`: authenticated manifests, exact object digests, and entry verification.
+- `Sources/KeyCore/V3ManifestReplayProtection.swift` and `V3ManifestCheckpointKeychainStore.swift`: exact, local, conditionally advanced checkpoints.
+- `Sources/KeyCore/V3DeviceWrappedCatchUpCoordinator.swift`: authenticated forward progress, ordered content/key transitions, conflict classification, and explicit stale-read gates.
+- `Sources/KeyCore/V3DeviceWrappedContentMutationPublisher.swift`: anchored transaction recovery records, staged immutable publication, entries before manifest, read-back validation, and conditional checkpoint advance.
+- `Sources/KeyCore/V3DeviceWrappedInterruptedTransactionRecoverer.swift`: recovery of ordinary device-wrapped transactions.
+- `docs/security-continuity-recovery.md`: APFS/iCloud qualification, filesystem requirements, availability versus failed verification, and recovery limitations.
+
+The text distinguishes hashes that identify bytes from keyed authentication that establishes trust. It does not promise provider availability, hidden entry names, compatibility with every provider, or recovery from a folder backup alone.
+
+#### Documentation mismatch: automatic merging
+
+The README describes automatic merging of independent edits. The repository also contains a reconciler and tests for such merge plans, but this is insufficient evidence for automatic merging in the shipping device-enrolled path. `KeyServiceHandler.swift` wires `V3DeviceWrappedVaultRuntime` to `V3DeviceWrappedReadOnlyVaultRuntime` and the device-wrapped catch-up coordinator. `V3DeviceWrappedCatchUpAccessGate.requireCurrent` refuses competing content histories for ordinary reads/writes; explicit stale reads retain the local checkpoint. The inspected device-wrapped read-only adapter's conflict-inspection methods are empty/not-found, and resolution is refused.
+
+The site therefore describes detection, branch preservation, pausing, and explicit stale reads. It does not promise automatic merging or an interactive per-entry resolution workflow for this path. Before adding those claims, trace their integration into the device-enrolled production composition and verify end-to-end behavior. The separate Key repository and its README were not modified in this task.
+
+### Recover
+
+- `Sources/KeyCore/V3DeviceWrappedEnrollmentTransition.swift`, `V3DeviceWrappedEnrollmentTransitionValidation.swift`, and `V3DeviceWrappedEnrollmentTransitionPublisher.swift`: approved enrollment, fresh vault key, complete current-snapshot re-encryption, per-device wrappers, and publication.
+- `Sources/KeyCore/V3DeviceWrappedRevocationWorkflow.swift`: device revocation and a new key for remaining active devices.
+- `docs/v3-device-wrapped-key-architecture.md` and `docs/security-continuity-recovery.md`: equal authority across active devices, comparison ceremony, key rotation, surviving-device continuity, and permanent loss after every identity is lost.
+- `docs/offline-recovery-models.md`: PIV primary/backup hardware is a later design candidate requiring physical qualification, not an implemented recovery capability.
+
+PIV is visibly labeled Planned. Either independently provisioned token is the leading design direction, not a two-token threshold requirement. Compatible YubiKeys are a candidate, not a qualified-hardware guarantee. PIN and touch policy, replacement, and provisioning remain subject to qualification. Do not present an existing cloud, password, support, or hardware recovery path after the last enrolled Mac is lost.
+
+## Release scope
+
+Authentication, synchronization, and continuity copy describes device-enrolled vaults. Stable 0.2.0 also supports the older Keychain-backed model, and migration is explicit. The copy does not imply that installing the current Stable release silently converts existing vaults. The development-only `key init` path is not used in the marketing examples.
+
+## Site verification
+
+- Production build, TypeScript, Oxlint, formatting, and all 13 Vitest tests pass.
+- The existing accessibility test now checks the page and all four open dialogs with axe. Geometry and color contrast are excluded from that jsdom check.
+- The production preview was inspected at desktop, 390px, and 320px widths. The articles fit without horizontal overflow, code wraps on narrow screens, and the close control stays visible while reading.
+- Keyboard scrolling reaches the end of the articles; Escape and trigger-focus restoration remain covered by the interaction tests.
+
+These checks do not constitute a screen-reader certification or execution of the product's cryptographic and recovery tests. No deployment was performed.

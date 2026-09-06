@@ -4,8 +4,8 @@ A static marketing page built with React, Tailwind CSS, and shadcn components
 backed by Base UI. The visual design follows the approved dark Touch ID concept.
 
 This overhaul lives on `codex/marketing-overhaul`. Keep it local until approved.
-The four chapter demonstrations and deeper explanations are intentionally
-placeholders; the surrounding design and interactions are implemented.
+The four chapter demonstrations remain placeholders. The Go deeper dialogs
+contain technical explanations grounded in the current Key implementation.
 
 ## Local development
 
@@ -31,18 +31,21 @@ Canonical and social URLs in `index.html` continue to target `key.tvr.works`.
 
 ## Editing the page
 
-| Change | Location |
-| --- | --- |
-| Chapter labels, headlines, summaries, links, install commands | `src/content/chapters.ts` |
-| Hero copy and image composition | `src/components/hero.tsx`, `src/index.css` |
-| Colors, type, spacing, responsive layouts | `src/index.css` |
-| Feature demonstrations | `src/components/feature-placeholder.tsx` |
-| Deeper chapter content | `src/components/feature-details.tsx` |
-| Chapter duration and state transitions | `src/lib/playback.ts` |
-| Visibility and reduced-motion playback behavior | `src/hooks/use-chapter-playback.ts` |
-| Static HTML and social metadata | `index.html`, `scripts/prerender.mjs` |
+| Change                                                        | Location                                   |
+| ------------------------------------------------------------- | ------------------------------------------ |
+| Chapter labels, headlines, summaries, links, install commands | `src/content/chapters.ts`                  |
+| Hero copy and image composition                               | `src/components/hero.tsx`, `src/index.css` |
+| Colors, type, spacing, responsive layouts                     | `src/index.css`                            |
+| Feature demonstrations                                        | `src/components/feature-placeholder.tsx`   |
+| Deeper chapter content                                        | `src/content/chapter-details.ts`           |
+| Detail dialog layout                                          | `src/components/feature-details.tsx`       |
+| Chapter duration and state transitions                        | `src/lib/playback.ts`                      |
+| Visibility and reduced-motion playback behavior               | `src/hooks/use-chapter-playback.ts`        |
+| Static HTML and social metadata                               | `index.html`, `scripts/prerender.mjs`      |
 
-Replace the demonstration and detail placeholders one chapter at a time. Keep
+Replace the demonstration placeholders one chapter at a time. Update the
+technical copy against the evidence and release boundaries in
+`docs/chapter-content.md`. Keep
 chapter IDs stable. The hero is independent of selection, and each chapter uses
 the same panel and detail-dialog composition. PIV recovery is still planned:
 review product claims against the actual key release before publishing.

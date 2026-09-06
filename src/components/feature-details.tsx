@@ -1,4 +1,4 @@
-import { Plus, X } from "lucide-react"
+import { ArrowUpRight, Plus, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -9,7 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { Skeleton } from "@/components/ui/skeleton"
+import { chapterDetails } from "@/content/chapter-details"
 import type { Chapter } from "@/content/chapters"
 
 export function FeatureDetails({
@@ -19,6 +19,8 @@ export function FeatureDetails({
   chapter: Chapter
   onOpen: () => void
 }) {
+  const detail = chapterDetails[chapter.id]
+
   return (
     <Dialog
       onOpenChange={(open) => {
@@ -43,7 +45,7 @@ export function FeatureDetails({
         </span>
       </DialogTrigger>
       <DialogContent className="reading-dialog" showCloseButton={false}>
-        <div className="flex items-center justify-between gap-4">
+        <div className="reading-toolbar flex items-center justify-between gap-4">
           <p className="eyebrow text-muted-foreground">
             {chapter.number} / {chapter.label}
           </p>
@@ -60,19 +62,53 @@ export function FeatureDetails({
             <span className="sr-only">Close details</span>
           </DialogClose>
         </div>
-        <DialogHeader className="gap-6">
-          <DialogTitle className="detail-title">{chapter.title}</DialogTitle>
-          <DialogDescription className="max-w-lg text-base leading-relaxed">
-            {chapter.detail}. This chapter’s detailed explanation is being
-            developed.
-          </DialogDescription>
-        </DialogHeader>
-        <div className="detail-placeholder space-y-5" aria-hidden="true">
-          <Skeleton className="h-4 w-2/3 animate-none rounded-none bg-white/10" />
-          <Skeleton className="h-3 w-full animate-none rounded-none bg-white/5" />
-          <Skeleton className="h-3 w-5/6 animate-none rounded-none bg-white/5" />
-          <Skeleton className="mt-10 h-32 w-full animate-none rounded-none bg-white/4" />
-        </div>
+        <section
+          className="detail-scroll"
+          aria-label={`${chapter.label} explanation`}
+          // oxlint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- The scroll region must be reachable for keyboard reading.
+          tabIndex={0}
+        >
+          <DialogHeader className="gap-6">
+            <DialogTitle className="detail-title">{chapter.title}</DialogTitle>
+            <DialogDescription className="detail-intro">
+              {detail.intro}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="detail-body">
+            {detail.sections.map((section) => (
+              <section className="detail-section" key={section.heading}>
+                {section.label && (
+                  <p className="eyebrow mb-3 text-muted-foreground">
+                    {section.label}
+                  </p>
+                )}
+                <h3>{section.heading}</h3>
+                {section.paragraphs.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+                {section.code && (
+                  <pre className="detail-code">
+                    <code>{section.code}</code>
+                  </pre>
+                )}
+              </section>
+            ))}
+            <footer className="detail-sources">
+              {detail.scope && <p className="detail-scope">{detail.scope}</p>}
+              <div className="flex flex-wrap gap-x-6 gap-y-2">
+                {detail.references.map((reference) => (
+                  <a
+                    className="detail-reference"
+                    href={reference.href}
+                    key={reference.href}
+                  >
+                    {reference.label} <ArrowUpRight aria-hidden="true" />
+                  </a>
+                ))}
+              </div>
+            </footer>
+          </div>
+        </section>
       </DialogContent>
     </Dialog>
   )

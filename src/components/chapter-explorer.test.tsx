@@ -6,7 +6,7 @@ import axe from "axe-core"
 import App from "@/App"
 import { ChapterExplorer } from "./chapter-explorer"
 import { InstallSection } from "./install-section"
-import { installCommand } from "@/content/chapters"
+import { chapters, installCommand } from "@/content/chapters"
 import { installBrowserEnvironment } from "@/test/browser-environment"
 
 afterEach(() => {
@@ -69,15 +69,28 @@ describe("chapter interactions", () => {
     expect(screen.getByRole("button", { name: "Pause chapters" })).toBeTruthy()
   })
 
-  it("has no automated accessibility violations in the page or open dialog", async () => {
+  it("has no automated accessibility violations in the page or any chapter dialog", async () => {
     installBrowserEnvironment({ reducedMotion: true })
     const user = userEvent.setup()
     const { container } = render(<App />)
     // Color/geometry checks require a rendering browser, reviewed separately.
     const options = { rules: { "color-contrast": { enabled: false } } }
     expect((await axe.run(container, options)).violations).toEqual([])
-    await user.click(screen.getByRole("button", { name: /Go deeper/ }))
-    expect((await axe.run(document.body, options)).violations).toEqual([])
+    for (const chapter of chapters) {
+      await user.click(
+        screen.getByRole("tab", {
+          name: new RegExp(`${chapter.number}\\s*${chapter.label}`),
+        })
+      )
+      await user.click(screen.getByRole("button", { name: /Go deeper/ }))
+      expect(screen.getByRole("dialog", { name: chapter.title })).toBeTruthy()
+      expect(
+        screen.getByRole("region", { name: `${chapter.label} explanation` })
+      ).toBeTruthy()
+      expect((await axe.run(document.body, options)).violations).toEqual([])
+      await user.click(screen.getByRole("button", { name: "Close details" }))
+      await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull())
+    }
   })
 })
 

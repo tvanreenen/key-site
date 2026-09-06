@@ -8,7 +8,8 @@ Implement the approved Soft focus concept: a dark Touch ID photographic hero,
 large white typography, the macOS / CLI / Open Source eyebrow, and the headline
 “Your secrets. Your Mac. Your CLI.” Below the hero, build four selectable,
 automatically cycling chapters: Use, Authenticate, Sync, Recover. Feature
-demonstrations and deeper editorial content remain explicit placeholders.
+demonstrations remain explicit placeholders. The Go deeper dialogs now contain
+source-grounded technical explanations; see `docs/chapter-content.md`.
 
 Include working install links, chapter progress and playback controls, a
 consistent detail dialog, responsive layouts, and accessible keyboard behavior.
@@ -99,6 +100,6 @@ Additional primary references:
 
 Limits: this is not a screen-reader certification or a full cross-browser/device
 matrix. Reduced motion and visibility are driven through DOM-environment tests;
-OS-level motion settings were not changed. Feature artwork, demonstrations, and
-deeper editorial content remain placeholders by design. No push or deployment
+OS-level motion settings were not changed. Feature artwork and demonstrations remain placeholders by design. The deeper
+editorial content was added in the subsequent content pass. No push or deployment
 has been performed.
