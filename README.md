@@ -4,7 +4,7 @@ A static marketing page built with React, Tailwind CSS, and shadcn components
 backed by Base UI. The visual design follows the approved dark Touch ID concept.
 
 This overhaul lives on `codex/marketing-overhaul`. Keep it local until approved.
-Use has an interactive terminal demonstration; the other three chapter visuals remain placeholders. The inline Go deeper articles
+Use has a command walkthrough; the other three chapter visuals remain placeholders. The inline Go deeper articles
 contain technical explanations grounded in the current Key implementation.
 
 ## Local development
@@ -54,6 +54,9 @@ The approved photographic source is `assets/source/touch-id.png`. Run
 `npm run images` to regenerate responsive WebP variants and the social image.
 The generation brief is in `docs/hero-asset.md`. Earlier assets remain under
 `assets/` as design references; only `public/` is copied to the built site.
+
+Command examples and their explanations live in `src/content/command-walkthrough.ts`.
+Their order follows the entry lifecycle, and selection is manual.
 
 ## Component foundation
 

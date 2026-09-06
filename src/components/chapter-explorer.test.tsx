@@ -12,6 +12,7 @@ import axe from "axe-core"
 import App from "@/App"
 import { ChapterExplorer } from "./chapter-explorer"
 import { InstallSection } from "./install-section"
+import { commandWalkthrough } from "@/content/command-walkthrough"
 import { chapters, installCommand } from "@/content/chapters"
 import { installBrowserEnvironment } from "@/test/browser-environment"
 
@@ -120,9 +121,11 @@ describe("chapter interactions", () => {
     // Color/geometry checks require a rendering browser, reviewed separately.
     const options = { rules: { "color-contrast": { enabled: false } } }
     expect((await axe.run(container, options)).violations).toEqual([])
-    for (const example of ["add", "get", "edit"]) {
+    for (const { label } of commandWalkthrough) {
       await user.click(
-        screen.getByRole("button", { name: `Show ${example} example` })
+        screen.getByRole("button", {
+          name: `Show ${label.toLowerCase()} example`,
+        })
       )
       expect(screen.getByRole("button", { name: "Play chapters" })).toBeTruthy()
       expect((await axe.run(container, options)).violations).toEqual([])

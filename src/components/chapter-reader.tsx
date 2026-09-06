@@ -12,14 +12,10 @@ export function ChapterReader({
   chapter,
   compact,
   onRead,
-  progress,
-  paused,
 }: {
   chapter: Chapter
   compact: boolean
   onRead: () => void
-  progress: number
-  paused: boolean
 }) {
   const viewport = useRef<HTMLDivElement>(null)
   const overview = useRef<HTMLDivElement>(null)
@@ -80,7 +76,7 @@ export function ChapterReader({
           </p>
         </div>
         {chapter.id === "use" ? (
-          <UseDemo progress={progress} paused={paused} onInteract={onRead} />
+          <UseDemo onInteract={onRead} />
         ) : (
           <FeaturePlaceholder chapter={chapter} />
         )}

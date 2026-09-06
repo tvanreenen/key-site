@@ -351,7 +351,7 @@ a.text-link[href^="#"]:hover svg {
   border: 1px solid #ffffff0b;
   background: linear-gradient(125deg, #ffffff03, transparent);
 }
-/* A terminal example uses the same monochrome palette as the chapter pane. */
+/* Command references share the chapter palette without simulated terminal chrome. */
 .use-demo {
   min-width: 0;
   margin: 0;
@@ -371,71 +371,43 @@ a.text-link[href^="#"]:hover svg {
 .demo-screen {
   height: 244px;
   padding: 36px 28px;
-  font-family: var(--font-mono);
-  font-size: clamp(12px, 2.3cqi, 17px);
+  font-size: clamp(14px, 2.3cqi, 18px);
   line-height: 1.8;
 }
 .demo-scene {
   animation: demo-reveal 240ms ease-out both;
 }
-.demo-command,
-.demo-output {
+.demo-command {
   margin: 0;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
-  font: inherit;
+  font-family: var(--font-mono);
 }
 .demo-command {
   color: #b9b9bc;
-  padding-left: 2ch;
-  text-indent: -2ch;
-}
-.demo-prompt {
-  color: #7a7a7e;
 }
 .demo-tool {
   color: #f5f5f4;
   font-weight: 600;
 }
-.demo-return {
-  margin-top: 14px;
-  color: #7a7a7e;
-}
-.demo-caret {
-  display: inline-block;
-  width: 0.55em;
-  height: 1.05em;
-  vertical-align: -0.13em;
-  background: #d4d4d8;
-  opacity: 0.7;
-}
-.demo-output {
-  margin-top: 14px;
-  color: #d4d4d8;
-  font-size: 0.93em;
-}
-.demo-input {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 12px 24px;
-  margin-top: 18px;
-  color: #d4d4d8;
-}
-.demo-input-hint {
-  color: #929295;
-  font-size: 12px;
+.demo-explanation {
+  max-width: 53ch;
+  margin-top: 22px;
+  color: #b9b9bc;
+  font-size: 16px;
+  line-height: 1.7;
 }
 .demo-steps {
-  display: flex;
-  gap: 24px;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 12px;
   margin-top: 3px;
 }
 .demo-step {
   position: relative;
   height: 44px;
   padding: 0;
-  gap: 8px;
+  gap: 6px;
   border: none;
   border-radius: 0;
   background: transparent;
@@ -476,17 +448,23 @@ a.text-link[href^="#"]:hover svg {
     transform: translateY(0);
   }
 }
-@container (max-width: 420px) {
+@container (max-width: 540px) {
   .demo-screen {
-    height: 218px;
+    height: 272px;
     padding: 28px 20px;
     font-size: 13px;
   }
-  .demo-input-hint {
-    font-size: 11px;
+  .demo-explanation {
+    font-size: 14px;
+    line-height: 1.7;
   }
   .demo-steps {
-    gap: 22px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0 12px;
+  }
+  .demo-step {
+    justify-content: flex-start;
+    font-size: 11px;
   }
 }
 .placeholder-number {

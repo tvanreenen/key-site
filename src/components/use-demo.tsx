@@ -1,81 +1,53 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
+import { commandWalkthrough } from "@/content/command-walkthrough"
 
-const steps = ["Add", "Get", "Edit"] as const
-const exampleSecret = "example-api-key"
-
-export function UseDemo({
-  progress,
-  paused,
-  onInteract,
-}: {
-  progress: number
-  paused: boolean
-  onInteract: () => void
-}) {
-  const [choice, setChoice] = useState<{
-    index: number
-    progress: number
-  } | null>(null)
-  const index =
-    paused && choice?.progress === progress
-      ? choice.index
-      : Math.min(2, Math.floor(progress * steps.length))
+export function UseDemo({ onInteract }: { onInteract: () => void }) {
+  const [index, setIndex] = useState(0)
+  const step = commandWalkthrough[index]
 
   return (
-    <figure className="use-demo" aria-label="Key command-line demonstration">
+    <figure className="use-demo" aria-label="Key command walkthrough">
       <div className="demo-terminal">
         <div
           className="demo-screen"
-          aria-live={paused ? "polite" : "off"}
+          aria-live="polite"
           aria-atomic="true"
+          id="command-example"
         >
-          <div className="demo-scene" key={index}>
+          <div className="demo-scene" key={step.label}>
             <pre className="demo-command">
               <code>
-                <span className="demo-prompt" aria-hidden="true">
-                  ❯{" "}
-                </span>
-                <span className="demo-tool">key</span>{" "}
-                {steps[index].toLowerCase()} services/api
+                {step.commands.map((command, commandIndex) => (
+                  <span key={command}>
+                    {commandIndex > 0 && "\n"}
+                    <span className="demo-tool">key</span>
+                    {command.slice(3)}
+                  </span>
+                ))}
               </code>
             </pre>
-            {index === 1 ? (
-              <>
-                <pre className="demo-output">
-                  <code>{exampleSecret}</code>
-                </pre>
-                <div className="demo-return" aria-hidden="true">
-                  ❯ <span className="demo-caret" />
-                </div>
-              </>
-            ) : (
-              <div className="demo-input">
-                <span>
-                  Secret: <span className="demo-caret" aria-hidden="true" />
-                </span>
-                <span className="demo-input-hint">input hidden</span>
-              </div>
-            )}
+            <p className="demo-explanation">{step.explanation}</p>
           </div>
         </div>
       </div>
       <fieldset className="demo-steps">
         <legend className="sr-only">Command examples</legend>
-        {steps.map((item, stepIndex) => (
+        {commandWalkthrough.map((item, stepIndex) => (
           <Button
-            key={item}
+            key={item.label}
             variant="ghost"
             className="demo-step"
             aria-pressed={index === stepIndex}
-            aria-label={`Show ${item.toLowerCase()} example`}
+            aria-controls="command-example"
+            aria-label={`Show ${item.label.toLowerCase()} example`}
             onClick={() => {
-              setChoice({ index: stepIndex, progress })
+              setIndex(stepIndex)
               onInteract()
             }}
           >
             <span className="demo-step-number">0{stepIndex + 1}</span>
-            {item}
+            {item.label}
           </Button>
         ))}
       </fieldset>
