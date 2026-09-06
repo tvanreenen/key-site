@@ -107,3 +107,19 @@ above remain applicable; PIV hardware recovery still requires qualification and
 is visibly planned. No new recovery or automatic conflict resolution capability
 is claimed. The desktop reading pane allows room for the revised headings while
 keeping Play and Go deeper aligned.
+
+## Authentication overview
+
+`AuthenticateDemo` replaces the authentication placeholder with three manual
+views: Touch ID, Apple Watch, and password. The illustrations are inline SVGs
+with a shared monochrome treatment; there are no image assets, credential inputs,
+OS authentication calls, or independent playback timers. Selection pauses chapter
+playback and uses the existing demo controls and reduced-motion transition rules.
+The selected explanation is announced through a polite live region.
+
+Copy describes alternative methods within macOS authentication, with Watch
+availability conditional on macOS offering it. The double-click gesture was
+checked against [Apple’s Watch approval guidance](https://support.apple.com/en-us/102442).
+The protected-key policy and device dependencies remain grounded in the product
+sources recorded above. The views illustrate the methods rather than reproducing
+a system prompt.

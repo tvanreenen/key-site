@@ -469,6 +469,98 @@ a.text-link[href^="#"]:hover svg {
     font-size: 11px;
   }
 }
+/* Authentication uses the same surface and manual controls as the CLI demo. */
+.auth-demo {
+  min-width: 0;
+  margin: 0;
+  container-type: inline-size;
+}
+.auth-scene {
+  display: grid;
+  grid-template-columns: minmax(130px, 0.8fr) minmax(0, 1.4fr);
+  align-items: center;
+  gap: 28px;
+  height: 244px;
+  padding: 28px 36px 28px 24px;
+}
+.auth-artwork {
+  width: 100%;
+  max-width: 180px;
+  justify-self: center;
+  color: #d2d2d4;
+}
+.auth-metal {
+  fill: #1b1b1d;
+  stroke: #747478;
+}
+.auth-edge {
+  stroke: #454548;
+}
+.auth-fingerprint {
+  stroke-width: 1.7px;
+}
+.auth-watch-button {
+  stroke: #dedee0;
+}
+.auth-watch-signal {
+  stroke: #8b8b8e;
+}
+.auth-explanation h3 {
+  max-width: 20ch;
+  font-size: clamp(20px, 3cqi, 25px);
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+  font-weight: 550;
+}
+.auth-explanation p {
+  max-width: 37ch;
+  margin-top: 14px;
+  color: #b9b9bc;
+  font-size: 15px;
+  line-height: 1.7;
+}
+.auth-methods {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+@container (max-width: 540px) {
+  .auth-scene {
+    grid-template-columns: 96px minmax(0, 1fr);
+    gap: 20px;
+    height: 272px;
+    padding: 24px 20px;
+  }
+  .auth-explanation p {
+    font-size: 14px;
+  }
+  .auth-methods .demo-step {
+    justify-content: center;
+  }
+}
+@container (max-width: 360px) {
+  .auth-scene {
+    grid-template-columns: 1fr;
+    grid-template-rows: 86px auto;
+    align-content: center;
+    gap: 14px;
+    padding: 20px;
+  }
+  .auth-artwork {
+    width: 96px;
+    height: 96px;
+  }
+  .auth-artwork-password {
+    width: 156px;
+  }
+  .auth-explanation h3 {
+    max-width: none;
+    font-size: 18px;
+  }
+  .auth-explanation p {
+    margin-top: 10px;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+}
 .placeholder-number {
   bottom: -28px;
   right: 22px;
