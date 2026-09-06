@@ -477,9 +477,7 @@ a.text-link[href^="#"]:hover svg {
   color: #ffffff07;
 }
 .chapter-footer {
-  margin-top: auto;
-  min-height: 84px;
-  padding-top: 23px;
+  align-self: flex-start;
 }
 .detail-trigger,
 .playback-toggle,
@@ -855,9 +853,6 @@ a.text-link[href^="#"]:hover svg {
   }
   .text-link {
     font-size: 16px;
-  }
-  .chapter-footer {
-    padding-top: 20px;
   }
   .chapter-stage {
     --reader-gutter: 24px;

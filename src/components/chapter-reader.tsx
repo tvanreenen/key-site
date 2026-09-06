@@ -80,7 +80,7 @@ export function ChapterReader({
         ) : (
           <FeaturePlaceholder chapter={chapter} />
         )}
-        <div className="chapter-footer flex items-center justify-between gap-6 border-t border-border">
+        <div className="chapter-footer">
           <Button
             variant="ghost"
             className="detail-trigger h-auto justify-start rounded-none p-0 text-left"
