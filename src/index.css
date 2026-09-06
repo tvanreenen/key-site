@@ -216,6 +216,7 @@ a.text-link[href^="#"]:hover svg {
     radial-gradient(ellipse at 90% 30%, #ffffff02, transparent 60%), #101011;
 }
 .chapter-layout {
+  --chapter-controls-inset: 36px;
   display: grid;
   grid-template-columns: minmax(240px, 25%) minmax(0, 1fr);
   gap: 0;
@@ -228,7 +229,7 @@ a.text-link[href^="#"]:hover svg {
   justify-content: space-between;
   gap: 40px;
   border-right: 1px solid var(--border);
-  padding: 42px 36px 36px var(--page-gutter);
+  padding: 42px 36px var(--chapter-controls-inset) var(--page-gutter);
 }
 .chapter-tabs {
   display: flex;
@@ -323,7 +324,8 @@ a.text-link[href^="#"]:hover svg {
   flex-direction: column;
   gap: 34px;
   min-height: var(--reader-height);
-  padding: 57px var(--page-gutter) 39px clamp(36px, 4.3vw, 76px);
+  padding: 57px var(--page-gutter) var(--chapter-controls-inset)
+    clamp(36px, 4.3vw, 76px);
 }
 .chapter-panel[hidden] {
   display: none;
@@ -477,7 +479,9 @@ a.text-link[href^="#"]:hover svg {
   color: #ffffff07;
 }
 .chapter-footer {
+  display: flex;
   align-self: flex-start;
+  margin-top: auto;
 }
 .detail-trigger,
 .playback-toggle,
@@ -489,6 +493,7 @@ a.text-link[href^="#"]:hover svg {
 }
 .detail-trigger {
   min-height: 44px;
+  border: 0;
 }
 .detail-trigger::before,
 .reading-back::before {
@@ -522,7 +527,7 @@ a.text-link[href^="#"]:hover svg {
 
 /* The overview and article share a native scrolling surface on desktop. */
 .chapter-stage {
-  --reader-height: clamp(560px, calc(100svh - 64px), 690px);
+  --reader-height: 690px;
   --reader-gutter: clamp(36px, 4.3vw, 76px);
 }
 .chapter-reader {
@@ -722,8 +727,8 @@ a.text-link[href^="#"]:hover svg {
     font-size: 16px;
     gap: 12px;
   }
-  .chapter-panel {
-    min-height: 716px;
+  .chapter-stage {
+    --reader-height: 744px;
   }
   .install-section {
     gap: 40px;
@@ -820,6 +825,9 @@ a.text-link[href^="#"]:hover svg {
   }
   .mobile-page-count {
     display: inline;
+  }
+  .chapter-footer {
+    margin-top: 0;
   }
   .chapter-overview {
     min-height: 620px;
