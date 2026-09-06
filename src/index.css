@@ -347,12 +347,6 @@ a.text-link[href^="#"]:hover svg {
   font-size: 17px;
   line-height: 1.6;
 }
-.feature-placeholder {
-  min-height: 244px;
-  padding: 30px;
-  border: 1px solid #ffffff0b;
-  background: linear-gradient(125deg, #ffffff03, transparent);
-}
 /* Command references share the chapter palette without simulated terminal chrome. */
 .use-demo {
   min-width: 0;
@@ -594,7 +588,7 @@ a.text-link[href^="#"]:hover svg {
   align-items: center;
   min-height: 218px;
 }
-.sync-mac {
+.vault-mac {
   width: 88px;
   height: 67px;
   stroke: #99999e;
@@ -602,14 +596,14 @@ a.text-link[href^="#"]:hover svg {
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-.sync-screen {
+.vault-screen {
   fill: #1c1c1f;
   stroke: #ffffff12;
 }
-.sync-screen-chain {
+.vault-screen-chain {
   stroke: #6b6b70;
 }
-.sync-mac circle {
+.vault-mac circle {
   fill: #161618;
   stroke: #d1d1d5;
 }
@@ -735,7 +729,7 @@ a.text-link[href^="#"]:hover svg {
 .sync-receiver {
   text-align: center;
 }
-.sync-receiver .sync-mac {
+.sync-receiver .vault-mac {
   width: 74px;
   height: 56px;
   margin-inline: auto;
@@ -788,7 +782,7 @@ a.text-link[href^="#"]:hover svg {
   .sync-publisher {
     grid-area: sender;
   }
-  .sync-publisher .sync-mac {
+  .sync-publisher .vault-mac {
     margin-inline: auto;
   }
   .sync-publisher > span {
@@ -827,8 +821,8 @@ a.text-link[href^="#"]:hover svg {
   .sync-surface {
     padding: 24px 16px;
   }
-  .sync-mac,
-  .sync-receiver .sync-mac {
+  .vault-mac,
+  .sync-receiver .vault-mac {
     width: 62px;
     height: 48px;
   }
@@ -851,14 +845,205 @@ a.text-link[href^="#"]:hover svg {
     font-size: 18px;
   }
 }
-.placeholder-number {
-  bottom: -28px;
-  right: 22px;
-  font-size: 190px;
-  line-height: 1;
-  font-weight: 650;
-  letter-spacing: -0.08em;
-  color: #ffffff07;
+/* Recovery needs both device authority and the encrypted vault data. */
+.recover-demo {
+  min-width: 0;
+  container-type: inline-size;
+}
+.chapter-layout:has(.recover-demo) .chapter-stage {
+  --reader-height: 880px;
+}
+.chapter-overview:has(.recover-demo) .chapter-title {
+  text-wrap: balance;
+}
+.recover-surface {
+  margin: 0;
+  padding: 30px 28px;
+}
+.recover-path {
+  display: grid;
+  grid-template-columns: 1fr 20px 0.85fr 34px 1.2fr;
+  gap: 14px;
+  align-items: center;
+  max-width: 580px;
+  margin-inline: auto;
+}
+.recover-device,
+.recover-files {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.recover-device .vault-mac {
+  width: 100px;
+  height: 76px;
+}
+.recover-files > svg {
+  width: 65px;
+  height: 76px;
+  color: #b9b9bc;
+  stroke-width: 0.65;
+}
+.recover-device > span,
+.recover-files > span {
+  color: #b9b9bc;
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: center;
+}
+.recover-plus,
+.recover-arrow {
+  width: 100%;
+  height: 20px;
+  margin-bottom: 30px;
+  color: #89898f;
+  stroke-width: 1;
+}
+.recover-new-mac {
+  position: relative;
+}
+.recover-approved {
+  position: absolute;
+  right: 3px;
+  top: 2px;
+  width: 18px;
+  height: 18px;
+  padding: 3px;
+  border: 1px solid #99999e;
+  border-radius: 50%;
+  background: #171719;
+  color: #ededee;
+  stroke-width: 1.5;
+}
+.recover-caption {
+  margin-top: 26px;
+  color: #b9b9bc;
+  font-size: 14px;
+  line-height: 1.7;
+}
+.recover-planned {
+  display: grid;
+  grid-template-columns: 80px minmax(0, 1fr);
+  gap: 22px;
+  align-items: center;
+  margin-top: 28px;
+}
+.recovery-keys {
+  width: 80px;
+  height: 92px;
+  stroke: #aaaab0;
+  stroke-width: 1.25;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.recovery-key-body {
+  fill: #19191c;
+}
+.recover-plan-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+}
+.recover-plan-heading h3 {
+  color: #e3e3e5;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.025em;
+}
+.recover-plan-label {
+  border: 1px solid #ffffff30;
+  border-radius: 3px;
+  padding: 2px 6px;
+  color: #b9b9bc;
+  font-size: 9px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+.recover-planned p {
+  margin-top: 10px;
+  color: #b9b9bc;
+  font-size: 13px;
+  line-height: 1.7;
+}
+@media (min-width: 768px) and (max-width: 900px) {
+  .chapter-layout:has(.recover-demo) .chapter-stage {
+    --reader-height: 960px;
+  }
+}
+@container (max-width: 540px) {
+  .recover-surface {
+    padding: 24px 20px;
+  }
+  .recover-path {
+    gap: 8px;
+    grid-template-columns: 1fr 15px 0.8fr 22px 1.2fr;
+  }
+  .recover-device .vault-mac {
+    width: 80px;
+    height: 62px;
+  }
+  .recover-files > svg {
+    width: 50px;
+    height: 62px;
+  }
+  .recover-device > span,
+  .recover-files > span {
+    min-height: 32px;
+    font-size: 11px;
+  }
+  .recover-caption {
+    font-size: 13px;
+  }
+  .recover-planned {
+    gap: 16px;
+    grid-template-columns: 64px minmax(0, 1fr);
+  }
+  .recovery-keys {
+    width: 64px;
+    height: 80px;
+  }
+}
+@container (max-width: 360px) {
+  .recover-surface {
+    padding: 24px 16px;
+  }
+  .recover-path {
+    gap: 4px;
+    grid-template-columns: 1fr 12px 0.8fr 16px 1.15fr;
+  }
+  .recover-device .vault-mac {
+    width: 58px;
+    height: 46px;
+  }
+  .recover-files > svg {
+    width: 40px;
+    height: 46px;
+  }
+  .recover-device > span,
+  .recover-files > span {
+    font-size: 10px;
+  }
+  .recover-approved {
+    right: 0;
+    width: 14px;
+    height: 14px;
+    padding: 2px;
+  }
+  .recover-planned {
+    align-items: start;
+    gap: 12px;
+    grid-template-columns: 48px minmax(0, 1fr);
+  }
+  .recovery-keys {
+    width: 48px;
+    height: 68px;
+  }
+  .recover-plan-heading h3 {
+    font-size: 16px;
+  }
 }
 .chapter-footer {
   display: flex;
@@ -1218,14 +1403,6 @@ a.text-link[href^="#"]:hover svg {
   .chapter-description {
     font-size: 15px;
     line-height: 1.6;
-  }
-  .feature-placeholder {
-    min-height: 210px;
-    padding: 24px;
-  }
-  .placeholder-number {
-    font-size: 152px;
-    bottom: -18px;
   }
   .text-link {
     font-size: 16px;

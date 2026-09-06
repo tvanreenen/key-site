@@ -6,7 +6,7 @@ import { FeatureDetails } from "@/components/feature-details"
 import { AuthenticateDemo } from "@/components/authenticate-demo"
 import { SyncDemo } from "@/components/sync-demo"
 import { UseDemo } from "@/components/use-demo"
-import { FeaturePlaceholder } from "@/components/feature-placeholder"
+import { RecoverDemo } from "@/components/recover-demo"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import type { Chapter } from "@/content/chapters"
 
@@ -84,7 +84,7 @@ export function ChapterReader({
         ) : chapter.id === "sync" ? (
           <SyncDemo />
         ) : (
-          <FeaturePlaceholder chapter={chapter} />
+          <RecoverDemo />
         )}
         <div className="chapter-footer">
           <Button

@@ -159,3 +159,26 @@ The caption conveys the diagram’s meaning in accessible text; decorative graph
 are hidden from assistive technology. No additional controls or animation timers
 are introduced. The existing automated page accessibility check covers the new
 figure and the unchanged technical article.
+
+## Recover overview
+
+`RecoverDemo` depicts an enrolled Mac plus usable encrypted vault files enabling
+a replacement Mac. The summary explains that the replacement has its own Secure
+Enclave keys and that adding or revoking a device rotates the vault key and
+re-encrypts the current snapshot. The evidence and limits in the Recover section
+above still apply. The overview does not imply automatic replacement enrollment
+or that revocation erases previously accessible data.
+
+A separate Physical-key recovery section is explicitly labeled Planned and uses
+conditional wording. The primary and backup PIV recipients would be independent,
+not a two-token requirement; the encrypted vault files would still be necessary.
+The two token drawings are generic illustrations, not a claim of qualified
+hardware support.
+
+Sync and Recover share `MacIllustration` to preserve their device artwork.
+Recover replaces the final placeholder; the unused placeholder component and
+its styles were removed. The overview remains static and accessible through
+its caption, with no extra controls or timers. Desktop and narrow mobile
+layouts were inspected; the Go deeper and Play controls share a bottom inset.
+The existing automated accessibility check covers both current and planned
+recovery content.
