@@ -40,9 +40,9 @@ export function Hero() {
           macOS <span>/</span> CLI <span>/</span> Open Source
         </p>
         <h1 id="hero-title" className="hero-title">
-          <span>Your secrets.</span>
           <span>Your Mac.</span>
           <span>Your CLI.</span>
+          <span>Your secrets.</span>
         </h1>
         <p className="hero-description">
           A password and secret vault for your Mac’s terminal. Unlock it with
