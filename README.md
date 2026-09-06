@@ -4,7 +4,7 @@ A static marketing page built with React, Tailwind CSS, and shadcn components
 backed by Base UI. The visual design follows the approved dark Touch ID concept.
 
 This overhaul lives on `codex/marketing-overhaul`. Keep it local until approved.
-The four chapter demonstrations remain placeholders. The inline Go deeper articles
+Use has an interactive terminal demonstration; the other three chapter visuals remain placeholders. The inline Go deeper articles
 contain technical explanations grounded in the current Key implementation.
 
 ## Local development
@@ -36,7 +36,7 @@ Canonical and social URLs in `index.html` continue to target `key.tvr.works`.
 | Chapter labels, headlines, summaries, links, install commands | `src/content/chapters.ts`                                                 |
 | Hero copy and image composition                               | `src/components/hero.tsx`, `src/index.css`                                |
 | Colors, type, spacing, responsive layouts                     | `src/index.css`                                                           |
-| Feature demonstrations                                        | `src/components/feature-placeholder.tsx`                                  |
+| Feature demonstrations                                        | `src/components/use-demo.tsx`, `src/components/feature-placeholder.tsx`   |
 | Deeper chapter content                                        | `src/content/chapter-details.ts`                                          |
 | Inline reading and scroll navigation                          | `src/components/chapter-reader.tsx`, `src/components/feature-details.tsx` |
 | Chapter duration and state transitions                        | `src/lib/playback.ts`                                                     |

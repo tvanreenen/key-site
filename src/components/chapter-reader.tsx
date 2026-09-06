@@ -3,6 +3,7 @@ import { ArrowDown, ArrowUp } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { FeatureDetails } from "@/components/feature-details"
+import { UseDemo } from "@/components/use-demo"
 import { FeaturePlaceholder } from "@/components/feature-placeholder"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import type { Chapter } from "@/content/chapters"
@@ -11,10 +12,14 @@ export function ChapterReader({
   chapter,
   compact,
   onRead,
+  progress,
+  paused,
 }: {
   chapter: Chapter
   compact: boolean
   onRead: () => void
+  progress: number
+  paused: boolean
 }) {
   const viewport = useRef<HTMLDivElement>(null)
   const overview = useRef<HTMLDivElement>(null)
@@ -74,7 +79,11 @@ export function ChapterReader({
             {chapter.description}
           </p>
         </div>
-        <FeaturePlaceholder chapter={chapter} />
+        {chapter.id === "use" ? (
+          <UseDemo progress={progress} paused={paused} onInteract={onRead} />
+        ) : (
+          <FeaturePlaceholder chapter={chapter} />
+        )}
         <div className="chapter-footer flex items-center justify-between gap-6 border-t border-border">
           <Button
             variant="ghost"

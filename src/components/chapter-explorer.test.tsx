@@ -120,6 +120,13 @@ describe("chapter interactions", () => {
     // Color/geometry checks require a rendering browser, reviewed separately.
     const options = { rules: { "color-contrast": { enabled: false } } }
     expect((await axe.run(container, options)).violations).toEqual([])
+    for (const example of ["save", "read", "compose"]) {
+      await user.click(
+        screen.getByRole("button", { name: `Show ${example} example` })
+      )
+      expect(screen.getByRole("button", { name: "Play chapters" })).toBeTruthy()
+      expect((await axe.run(container, options)).violations).toEqual([])
+    }
     for (const chapter of chapters) {
       await user.click(
         screen.getByRole("tab", {

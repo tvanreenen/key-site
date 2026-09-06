@@ -96,6 +96,8 @@ export function ChapterExplorer() {
                   chapter={chapter}
                   compact={compact}
                   onRead={pause}
+                  progress={progress}
+                  paused={state.paused}
                 />
               )}
             </TabsContent>
