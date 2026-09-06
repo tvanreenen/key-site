@@ -362,13 +362,17 @@ a.text-link[href^="#"]:hover svg {
   min-height: 84px;
   padding-top: 23px;
 }
-.detail-trigger {
+.detail-trigger,
+.playback-toggle {
   position: relative;
   isolation: isolate;
-  min-height: 64px;
   background: transparent;
 }
-.detail-trigger::before {
+.detail-trigger {
+  min-height: 64px;
+}
+.detail-trigger::before,
+.playback-toggle::before {
   content: "";
   position: absolute;
   z-index: -1;
@@ -385,7 +389,9 @@ a.text-link[href^="#"]:hover svg {
   transition: opacity 220ms ease;
 }
 .detail-trigger:hover::before,
-.detail-trigger:focus-visible::before {
+.detail-trigger:focus-visible::before,
+.playback-toggle:hover::before,
+.playback-toggle:focus-visible::before {
   opacity: 1;
 }
 .detail-trigger:hover .text-link svg {
