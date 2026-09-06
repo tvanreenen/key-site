@@ -39,19 +39,6 @@ export function InstallSection() {
           Install with Homebrew
         </h3>
         <div className="install-command">
-          <Button
-            variant="ghost"
-            className="ml-auto flex h-11 min-w-24 gap-2 rounded-none px-3 text-muted-foreground"
-            onClick={copyCommand}
-            aria-label="Copy install commands"
-          >
-            {feedback === "copied" ? (
-              <Check aria-hidden="true" />
-            ) : (
-              <Copy aria-hidden="true" />
-            )}
-            {feedback === "copied" ? "Copied" : "Copy"}
-          </Button>
           <pre className="install-code">
             <code>
               {installCommand.split(" && ").map((command, index) => (
@@ -62,8 +49,29 @@ export function InstallSection() {
               ))}
             </code>
           </pre>
+          <Button
+            variant="ghost"
+            className="size-11 shrink-0 gap-2 rounded-none px-2 text-muted-foreground sm:w-24"
+            onClick={copyCommand}
+            aria-label="Copy install commands"
+          >
+            {feedback === "copied" ? (
+              <Check aria-hidden="true" />
+            ) : (
+              <Copy aria-hidden="true" />
+            )}
+            <span className="hidden sm:inline">
+              {feedback === "copied" ? "Copied" : "Copy"}
+            </span>
+          </Button>
         </div>
-        <output className="copy-feedback block text-sm text-muted-foreground">
+        <output
+          className={
+            feedback === "failed"
+              ? "mt-3 block text-sm text-muted-foreground"
+              : "sr-only"
+          }
+        >
           {feedback === "copied"
             ? "Copied to clipboard."
             : feedback === "failed"

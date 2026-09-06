@@ -434,24 +434,24 @@ a.text-link[href^="#"]:hover svg {
   min-width: 0;
 }
 .install-command {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
   border-block: 1px solid var(--border);
-  padding: 8px 0 24px;
+  padding: 16px 0;
 }
 .install-code {
-  margin-top: 8px;
+  min-width: 0;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
   font-family: var(--font-mono);
   font-size: clamp(12px, 1.1vw, 16px);
   line-height: 2.1;
 }
-.copy-feedback {
-  min-height: 34px;
-  padding-top: 8px;
-}
 .install-note {
   max-width: 45ch;
-  margin-top: 8px;
+  margin-top: 20px;
   font-size: 15px;
   line-height: 1.8;
 }
