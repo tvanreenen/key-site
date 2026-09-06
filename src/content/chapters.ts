@@ -4,7 +4,7 @@ export const chapters = [
     number: "01",
     label: "Use",
     title: "At home in your shell.",
-    description: "Pipe in. Copy out. Keep your workflow.",
+    description: "Add, retrieve, and update secrets from your terminal.",
     detail: "Pipes, TOTP, and everyday commands",
   },
   {

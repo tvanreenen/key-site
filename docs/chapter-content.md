@@ -1,6 +1,6 @@
 # Go deeper content
 
-The four inline articles explain the CLI workflow, device-enrolled authentication, verified folder synchronization, and device continuity. The writing names mechanisms, explains their consequences, and states the limits that matter to the reader. The Use overview now demonstrates Save, Read, and Compose in a terminal; the other chapter demonstrations remain placeholders.
+The four inline articles explain the CLI workflow, device-enrolled authentication, verified folder synchronization, and device continuity. The writing names mechanisms, explains their consequences, and states the limits that matter to the reader. The Use overview now demonstrates Add, Get, and Edit in a terminal; the other chapter demonstrations remain placeholders.
 
 Copy lives in `src/content/chapter-details.ts`. `src/components/feature-details.tsx` renders the shared article content; `src/components/chapter-reader.tsx` owns the overview, reading layout, focus, and scroll navigation. Desktop uses shadcn Scroll Area, while mobile uses document scrolling. The article stays available below the overview, with a sticky Back to overview control. Go deeper moves focus to the article heading and scrolls its start into view. Both controls respect reduced motion. Reading pauses automatic playback, and changing chapters mounts a fresh overview.
 
@@ -70,12 +70,14 @@ These checks do not constitute a screen-reader certification or execution of the
 
 ## Use demonstration
 
-`src/components/use-demo.tsx` presents three illustrative terminal scenes. Save
-pipes OpenSSL output into `key add`, Read shows a clearly illustrative Base64
-value from `key get`, and Compose shows `key copy "$(key list | fzf)"` with a
-stylized selector. Commands come from the product README; `KeyCLIApplication`
-confirms that successful add/copy operations do not print success messages. The
-demonstration does not execute commands or access the clipboard.
+`src/components/use-demo.tsx` presents three illustrative terminal scenes: add a
+secret, retrieve its value, and edit it. Add and Edit show the actual `Secret: `
+prompt with a small explanatory input-hidden annotation. Get uses the sample
+value `example-api-key`. `KeyCLIApplication.readSecretFromInput` confirms both
+write commands use the secure prompt; successful writes do not print a success
+message. The demonstration does not execute commands or access the clipboard.
+The terminal has no title bar or caption bar; piping and composition remain in
+the deeper article.
 
 Scene changes follow the existing chapter progress, with no separate timer.
 Selecting a scene pauses the chapter and holds the selection; resumed playback

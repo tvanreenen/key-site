@@ -14,31 +14,29 @@ it("follows chapter progress, lets readers hold an example, and resumes with pla
   )
   expect(
     screen
-      .getByRole("button", { name: "Show save example" })
+      .getByRole("button", { name: "Show add example" })
       .getAttribute("aria-pressed")
   ).toBe("true")
   rerender(<UseDemo progress={0.4} paused={false} onInteract={onInteract} />)
   expect(
     screen
-      .getByRole("button", { name: "Show read example" })
+      .getByRole("button", { name: "Show get example" })
       .getAttribute("aria-pressed")
   ).toBe("true")
-  await user.click(screen.getByRole("button", { name: "Show compose example" }))
+  await user.click(screen.getByRole("button", { name: "Show edit example" }))
   expect(onInteract).toHaveBeenCalledOnce()
   rerender(<UseDemo progress={0.4} paused={true} onInteract={onInteract} />)
-  expect(
-    screen.getByLabelText("Example fzf selection: services/api")
-  ).toBeTruthy()
+  expect(screen.getByText("input hidden")).toBeTruthy()
   rerender(<UseDemo progress={0.5} paused={false} onInteract={onInteract} />)
   expect(
     screen
-      .getByRole("button", { name: "Show read example" })
+      .getByRole("button", { name: "Show get example" })
       .getAttribute("aria-pressed")
   ).toBe("true")
   rerender(<UseDemo progress={0.8} paused={false} onInteract={onInteract} />)
   expect(
     screen
-      .getByRole("button", { name: "Show compose example" })
+      .getByRole("button", { name: "Show edit example" })
       .getAttribute("aria-pressed")
   ).toBe("true")
 })

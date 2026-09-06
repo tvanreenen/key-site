@@ -120,7 +120,7 @@ describe("chapter interactions", () => {
     // Color/geometry checks require a rendering browser, reviewed separately.
     const options = { rules: { "color-contrast": { enabled: false } } }
     expect((await axe.run(container, options)).violations).toEqual([])
-    for (const example of ["save", "read", "compose"]) {
+    for (const example of ["add", "get", "edit"]) {
       await user.click(
         screen.getByRole("button", { name: `Show ${example} example` })
       )
