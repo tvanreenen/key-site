@@ -209,21 +209,6 @@ a.text-link[href^="#"]:hover svg {
 .hero-install {
   margin-top: 30px;
 }
-.hero-explore {
-  position: absolute;
-  bottom: 27px;
-  right: 0;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-height: 44px;
-  color: #b9b9bc;
-  font-size: 12px;
-}
-.hero-explore svg {
-  width: 16px;
-  height: 16px;
-}
 
 .chapter-section {
   scroll-margin-top: 0;
@@ -549,10 +534,6 @@ a.text-link[href^="#"]:hover svg {
   }
   .hero-install {
     margin-top: 24px;
-  }
-  .hero-explore {
-    bottom: 16px;
-    font-size: 11px;
   }
   .chapter-layout {
     display: flex;

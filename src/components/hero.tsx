@@ -52,10 +52,6 @@ export function Hero() {
           Install key <ArrowDown aria-hidden="true" />
         </a>
       </div>
-      <a className="hero-explore page-gutter" href="#explore">
-        <span>Explore key</span>
-        <ArrowDown aria-hidden="true" />
-      </a>
     </section>
   )
 }
