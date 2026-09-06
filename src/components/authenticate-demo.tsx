@@ -92,10 +92,9 @@ export function AuthenticateDemo() {
           ))}
         </ul>
         <figcaption className="auth-caption">
-          macOS user presence lets you approve access with a touch on your
-          keyboard or a double-click on your Apple Watch. When both are
-          available, your Mac prompts both. Your Mac password is there as a
-          backup.
+          macOS user presence prompts Touch ID and Apple Watch together when
+          available. Touch your keyboard or double-click your Watch to approve,
+          with your Mac password as a backup.
         </figcaption>
       </figure>
     </div>
