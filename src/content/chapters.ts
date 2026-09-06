@@ -37,4 +37,5 @@ export const chapters = [
 export type Chapter = (typeof chapters)[number]
 
 export const projectUrl = "https://github.com/tvanreenen/key"
-export const installCommand = "brew tap tvanreenen/tap\nbrew install --cask key"
+export const installCommand =
+  "brew tap tvanreenen/tap && brew install --cask key"

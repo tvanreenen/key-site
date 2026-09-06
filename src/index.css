@@ -143,6 +143,9 @@
 a.text-link:hover svg {
   transform: translate(2px, -2px);
 }
+a.text-link[href^="#"]:hover svg {
+  transform: translateY(2px);
+}
 .skip-link {
   position: fixed;
   z-index: 100;
@@ -197,6 +200,7 @@ a.text-link:hover svg {
   display: block;
 }
 .hero-description {
+  max-width: 46ch;
   margin-top: 34px;
   color: #b9b9bc;
   font-size: clamp(16px, 1.4vw, 20px);
@@ -429,10 +433,14 @@ a.text-link:hover svg {
   align-self: center;
   min-width: 0;
 }
-.install-code {
-  overflow-x: auto;
-  padding: 24px 0;
+.install-command {
   border-block: 1px solid var(--border);
+  padding: 8px 0 24px;
+}
+.install-code {
+  margin-top: 8px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
   font-family: var(--font-mono);
   font-size: clamp(12px, 1.1vw, 16px);
   line-height: 2.1;

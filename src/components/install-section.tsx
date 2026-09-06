@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { Fragment, useEffect, useRef, useState } from "react"
 import { ArrowUpRight, Check, Copy } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { installCommand, projectUrl } from "@/content/chapters"
@@ -28,23 +28,20 @@ export function InstallSection() {
       <div>
         <p className="eyebrow text-muted-foreground">Get started / macOS 14+</p>
         <h2 id="install-title" className="install-title">
-          Make it
-          <br />
-          your CLI.
+          Install key.
         </h2>
         <a className="text-link mt-8" href={`${projectUrl}#readme`}>
           Read the documentation <ArrowUpRight aria-hidden="true" />
         </a>
       </div>
       <div className="install-instructions">
-        <div className="mb-5 flex items-center justify-between gap-5">
-          <h3 className="eyebrow text-muted-foreground">
-            Install with Homebrew
-          </h3>
+        <h3 className="eyebrow mb-5 text-muted-foreground">
+          Install with Homebrew
+        </h3>
+        <div className="install-command">
           <Button
             variant="ghost"
-            className="size-11 rounded-none"
-            size="icon"
+            className="ml-auto flex h-11 min-w-24 gap-2 rounded-none px-3 text-muted-foreground"
             onClick={copyCommand}
             aria-label="Copy install commands"
           >
@@ -53,11 +50,19 @@ export function InstallSection() {
             ) : (
               <Copy aria-hidden="true" />
             )}
+            {feedback === "copied" ? "Copied" : "Copy"}
           </Button>
+          <pre className="install-code">
+            <code>
+              {installCommand.split(" && ").map((command, index) => (
+                <Fragment key={command}>
+                  {index > 0 && " && "}
+                  <span className="whitespace-nowrap">{command}</span>
+                </Fragment>
+              ))}
+            </code>
+          </pre>
         </div>
-        <pre className="install-code">
-          <code>{installCommand}</code>
-        </pre>
         <output className="copy-feedback block text-sm text-muted-foreground">
           {feedback === "copied"
             ? "Copied to clipboard."

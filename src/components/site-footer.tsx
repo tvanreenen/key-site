@@ -9,7 +9,7 @@ export function SiteFooter() {
           key
         </a>
         <p className="text-sm text-muted-foreground">
-          Independent. Open source.
+          Your secrets, under your control.
         </p>
       </div>
       <a className="nav-link" href={projectUrl}>

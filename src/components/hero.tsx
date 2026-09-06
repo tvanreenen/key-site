@@ -28,7 +28,7 @@ export function Hero() {
           className="flex items-center gap-7 sm:gap-10"
         >
           <a className="nav-link" href="#install">
-            Install <ArrowUpRight aria-hidden="true" />
+            Install <ArrowDown aria-hidden="true" />
           </a>
           <a className="nav-link" href={projectUrl}>
             GitHub <ArrowUpRight aria-hidden="true" />
@@ -45,11 +45,11 @@ export function Hero() {
           <span>Your CLI.</span>
         </h1>
         <p className="hero-description">
-          Secured by your Mac.
-          <br className="sm:hidden" /> Synced through a folder you choose.
+          A password and secret manager for your Mac’s command line, with native
+          authentication and encrypted sync through a folder you choose.
         </p>
         <a className="text-link hero-install" href="#install">
-          Install key <ArrowUpRight aria-hidden="true" />
+          Install key <ArrowDown aria-hidden="true" />
         </a>
       </div>
       <a className="hero-explore page-gutter" href="#explore">
