@@ -399,7 +399,7 @@ a.text-link[href^="#"]:hover svg {
 }
 .demo-steps {
   display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 12px;
   margin-top: 3px;
 }
@@ -459,7 +459,7 @@ a.text-link[href^="#"]:hover svg {
     line-height: 1.7;
   }
   .demo-steps {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 0 12px;
   }
   .demo-step {

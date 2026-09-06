@@ -10,17 +10,18 @@ it("keeps command references reader-controlled and pairs commands with explanati
   const onInteract = vi.fn()
   const user = userEvent.setup()
   const { rerender } = render(<UseDemo onInteract={onInteract} />)
-  expect(screen.getByRole("code").textContent).toBe("key add services/api")
-  await user.click(screen.getByRole("button", { name: "Show totp example" }))
-  expect(onInteract).toHaveBeenCalledOnce()
   expect(screen.getByRole("code").textContent).toBe(
-    "key add --totp github/mfa\nkey get github/mfa"
+    "key add services/api\nkey add --totp github/mfa"
   )
-  expect(screen.getByText(/Base32 secret/)).toBeTruthy()
+  expect(screen.getByText(/Base32 setup secret/)).toBeTruthy()
+  expect(screen.queryByRole("button", { name: "Show totp example" })).toBeNull()
+  await user.click(screen.getByRole("button", { name: "Show get example" }))
+  expect(onInteract).toHaveBeenCalledOnce()
+  expect(screen.getByText(/current one-time code/)).toBeTruthy()
   rerender(<UseDemo onInteract={onInteract} />)
   expect(
     screen
-      .getByRole("button", { name: "Show totp example" })
+      .getByRole("button", { name: "Show get example" })
       .getAttribute("aria-pressed")
   ).toBe("true")
   await user.click(screen.getByRole("button", { name: "Show delete example" }))

@@ -71,7 +71,7 @@ These checks do not constitute a screen-reader certification or execution of the
 ## Use command walkthrough
 
 `src/content/command-walkthrough.ts` contains command references and short
-explanations in lifecycle order: Add, List, Get, Copy, Edit, TOTP, Delete.
+explanations in lifecycle order: Add, List, Get, Copy, Edit, Delete. Add includes regular and TOTP entries.
 `src/components/use-demo.tsx` supplies the shared reading surface. There is no
 simulated output, prompt, cursor, or terminal chrome. The examples do not execute
 commands or access the clipboard.
@@ -87,6 +87,6 @@ returns names; remove asks for confirmation. TOTP uses a Base32 setup secret and
 retrieves the current code with get. Delete is the reader-facing label; its
 actual command is `key remove`, without the force flag.
 
-All 16 tests pass, including automated accessibility checks for all seven
-references and their articles, manual selection, the paired TOTP commands, and
+All 16 tests pass, including automated accessibility checks for all six
+references and their articles, manual selection, the two Add variants, and
 the removal explanation. Build, TypeScript, and lint also pass.
