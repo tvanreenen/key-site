@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { FeatureDetails } from "@/components/feature-details"
 import { AuthenticateDemo } from "@/components/authenticate-demo"
+import { SyncDemo } from "@/components/sync-demo"
 import { UseDemo } from "@/components/use-demo"
 import { FeaturePlaceholder } from "@/components/feature-placeholder"
 import { useMediaQuery } from "@/hooks/use-media-query"
@@ -80,6 +81,8 @@ export function ChapterReader({
           <UseDemo onInteract={onRead} />
         ) : chapter.id === "authenticate" ? (
           <AuthenticateDemo />
+        ) : chapter.id === "sync" ? (
+          <SyncDemo />
         ) : (
           <FeaturePlaceholder chapter={chapter} />
         )}

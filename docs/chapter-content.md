@@ -122,3 +122,19 @@ or independent playback timers. All three methods remain visible on mobile.
 Protected-key policy and device dependencies remain grounded in the product
 sources recorded above. This illustrates available authentication methods rather
 than reproducing a system prompt.
+
+## Sync overview
+
+`SyncDemo` presents delivery order and verified history together in a static
+figure. Numbered encrypted files illustrate out-of-order delivery (03, 01, 02);
+connected checkpoints illustrate history order after verification (01, 02, 03).
+These numbers are explanatory labels, not actual file names or an on-disk schema.
+The middle names authentication and history verification, so the diagram does
+not present sync as merely sorting files. The caption explicitly states that
+missing or conflicting data pauses progress; it does not imply automatic merging.
+
+The diagram uses the existing demo surface and monochrome palette. Its caption
+provides the meaning in accessible text; decorative file and checkpoint graphics
+are hidden from assistive technology. There are no extra controls or animation
+timers. Desktop, tablet, and 320px mobile layouts were inspected. The automated
+page accessibility check includes this overview and its existing article.
