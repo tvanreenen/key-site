@@ -13,9 +13,7 @@ it("presents all approval methods together without requiring interaction", () =>
   for (const label of ["Touch ID", "Apple Watch", "Password"]) {
     expect(within(overview).getByText(label)).toBeTruthy()
   }
-  expect(
-    within(overview).getByText(/Touch ID and Apple Watch together/)
-  ).toBeTruthy()
+  expect(within(overview).getByText(/your Mac prompts both/)).toBeTruthy()
   expect(within(overview).queryByRole("button")).toBeNull()
   expect(within(overview).queryByRole("textbox")).toBeNull()
 })

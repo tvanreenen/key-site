@@ -92,8 +92,10 @@ export function AuthenticateDemo() {
           ))}
         </ul>
         <figcaption className="auth-caption">
-          macOS can prompt Touch ID and Apple Watch together. Approve with
-          either, or use your Mac password.
+          macOS user presence lets you approve access with a touch on your
+          keyboard or a double-click on your Apple Watch. When both are
+          available, your Mac prompts both. Your Mac password is there as a
+          backup.
         </figcaption>
       </figure>
     </div>
