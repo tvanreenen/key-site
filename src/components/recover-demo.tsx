@@ -40,12 +40,12 @@ export function RecoverDemo() {
     <div className="recover-demo">
       <figure
         className="demo-terminal recover-surface"
-        aria-label="An enrolled Mac and vault files can authorize a replacement"
+        aria-label="A surviving enrolled Mac and vault files let you authorize a replacement"
       >
         <div className="recover-path" aria-hidden="true">
           <div className="recover-device">
             <MacIllustration />
-            <span>Enrolled Mac</span>
+            <span>Surviving Mac</span>
           </div>
           <Plus className="recover-plus" />
           <div className="recover-files">
@@ -62,9 +62,10 @@ export function RecoverDemo() {
           </div>
         </div>
         <figcaption className="recover-caption">
-          An enrolled Mac approves the replacement’s own Secure Enclave keys.
-          Adding or revoking a device creates a fresh vault key and re-encrypts
-          the current vault for the Macs that retain access.
+          Back up your vault files, too. A surviving enrolled Mac can authorize
+          a replacement with its own Secure Enclave keys. Adding or revoking a
+          Mac creates a fresh vault key and re-encrypts the current vault for
+          the Macs that retain access.
         </figcaption>
       </figure>
       <section
@@ -78,9 +79,10 @@ export function RecoverDemo() {
             <span className="recover-plan-label">Planned</span>
           </div>
           <p>
-            A registered PIV hardware key would work with your vault files if
-            every Mac is lost. Primary and backup keys would each recover access
-            independently.
+            A fallback even if every enrolled Mac is lost. With your vault
+            files, either a registered primary or backup PIV hardware key would
+            recover access independently. Keep them separate so losing one
+            leaves another way back in.
           </p>
         </div>
       </section>

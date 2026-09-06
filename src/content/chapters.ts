@@ -31,7 +31,7 @@ export const chapters = [
     label: "Recover",
     title: "Keep access when a Mac is lost.",
     description:
-      "With another enrolled Mac and your vault files, you can authorize a replacement.",
+      "With two or more Macs enrolled, losing one doesn’t mean losing access to your vault.",
     detail: "Device continuity and planned hardware recovery",
   },
 ] as const
