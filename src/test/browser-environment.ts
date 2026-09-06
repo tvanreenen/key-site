@@ -6,6 +6,19 @@ export function installBrowserEnvironment({
   reducedMotion = false,
   compact = false,
 } = {}) {
+  if (!HTMLElement.prototype.getAnimations) {
+    Object.defineProperty(HTMLElement.prototype, "getAnimations", {
+      configurable: true,
+      value: () => [],
+    })
+  }
+  if (!HTMLElement.prototype.scrollTo) {
+    Object.defineProperty(HTMLElement.prototype, "scrollTo", {
+      configurable: true,
+      value: () => {},
+      writable: true,
+    })
+  }
   vi.stubGlobal("matchMedia", (query: string) => ({
     matches: query.includes("prefers-reduced-motion") ? reducedMotion : compact,
     media: query,

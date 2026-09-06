@@ -1,6 +1,12 @@
 // @vitest-environment jsdom
 import { afterEach, describe, expect, it, vi } from "vitest"
-import { cleanup, render, screen, waitFor } from "@testing-library/react"
+import {
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import axe from "axe-core"
 import App from "@/App"
@@ -36,29 +42,67 @@ describe("chapter interactions", () => {
           .getByRole("tab", { name: /02\s*Authenticate/ })
           .getAttribute("aria-selected")
       ).toBe("true")
-      expect(screen.getByRole("tabpanel").getAttribute("aria-labelledby")).toBe(
-        screen.getByRole("tab", { name: /02\s*Authenticate/ }).id
+      await waitFor(() =>
+        expect(
+          screen.getByRole("tabpanel").getAttribute("aria-labelledby")
+        ).toBe(screen.getByRole("tab", { name: /02\s*Authenticate/ }).id)
       )
       expect(screen.getByRole("button", { name: "Play chapters" })).toBeTruthy()
     }
   )
 
-  it("opens details, closes with Escape, and returns focus without restarting playback", async () => {
+  it.each([false, true])(
+    "jumps into the inline article and returns to the overview (mobile: %s)",
+    async (compact) => {
+      installBrowserEnvironment({ compact, reducedMotion: true })
+      const scrollTo = vi.fn()
+      vi.spyOn(window, "scrollTo").mockImplementation(scrollTo)
+      vi.spyOn(HTMLElement.prototype, "scrollTo").mockImplementation(scrollTo)
+      const user = userEvent.setup()
+      render(<ChapterExplorer />)
+      expect(
+        screen.getByRole("article", {
+          name: "Pipes, TOTP, and everyday commands",
+        })
+      ).toBeTruthy()
+      await user.click(screen.getByRole("button", { name: /Go deeper/ }))
+      expect(document.activeElement).toBe(
+        screen.getByRole("heading", {
+          name: "Pipes, TOTP, and everyday commands",
+        })
+      )
+      expect(scrollTo).toHaveBeenLastCalledWith(
+        expect.objectContaining({ behavior: "instant" })
+      )
+      expect(screen.queryByRole("dialog")).toBeNull()
+      await user.click(screen.getByRole("button", { name: "Back to overview" }))
+      expect(document.activeElement).toBe(
+        screen.getByRole("heading", { name: "At home in your shell." })
+      )
+      expect(screen.getByRole("button", { name: "Play chapters" })).toBeTruthy()
+    }
+  )
+
+  it("pauses on direct pane scrolling and resets the reading surface when switching chapters", async () => {
     installBrowserEnvironment()
     const user = userEvent.setup()
     render(<ChapterExplorer />)
-    const trigger = screen.getByRole("button", { name: /Go deeper/ })
-    await user.click(trigger)
-    const dialog = screen.getByRole("dialog", {
-      name: "At home in your shell.",
+    const viewport = screen.getByRole("region", {
+      name: "Use overview and explanation",
     })
-    await waitFor(() =>
-      expect(dialog.contains(document.activeElement)).toBe(true)
-    )
-    await user.keyboard("{Escape}")
-    await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull())
-    await waitFor(() => expect(document.activeElement).toBe(trigger))
+    fireEvent.scroll(viewport, { target: { scrollTop: 240 } })
     expect(screen.getByRole("button", { name: "Play chapters" })).toBeTruthy()
+    await user.click(screen.getByRole("tab", { name: /02\s*Authenticate/ }))
+    expect(
+      screen.getByRole("region", {
+        name: "Authenticate overview and explanation",
+      }).scrollTop
+    ).toBe(0)
+    await user.click(screen.getByRole("tab", { name: /01\s*Use/ }))
+    expect(
+      screen.getByRole("region", { name: "Use overview and explanation" })
+        .scrollTop
+    ).toBe(0)
   })
 
   it("starts paused for reduced motion and allows an explicit Play", async () => {
@@ -69,7 +113,7 @@ describe("chapter interactions", () => {
     expect(screen.getByRole("button", { name: "Pause chapters" })).toBeTruthy()
   })
 
-  it("has no automated accessibility violations in the page or any chapter dialog", async () => {
+  it("has no automated accessibility violations in any chapter and its inline article", async () => {
     installBrowserEnvironment({ reducedMotion: true })
     const user = userEvent.setup()
     const { container } = render(<App />)
@@ -82,14 +126,8 @@ describe("chapter interactions", () => {
           name: new RegExp(`${chapter.number}\\s*${chapter.label}`),
         })
       )
-      await user.click(screen.getByRole("button", { name: /Go deeper/ }))
-      expect(screen.getByRole("dialog", { name: chapter.title })).toBeTruthy()
-      expect(
-        screen.getByRole("region", { name: `${chapter.label} explanation` })
-      ).toBeTruthy()
+      expect(screen.getByRole("article", { name: chapter.detail })).toBeTruthy()
       expect((await axe.run(document.body, options)).violations).toEqual([])
-      await user.click(screen.getByRole("button", { name: "Close details" }))
-      await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull())
     }
   })
 })

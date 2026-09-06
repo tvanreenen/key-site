@@ -8,7 +8,7 @@ import type { PlaybackEvent, PlaybackState } from "@/lib/playback"
 import { useMediaQuery } from "@/hooks/use-media-query"
 
 export function useChapterPlayback(count: number) {
-  const stageRef = useRef<HTMLElement>(null)
+  const stageRef = useRef<HTMLDivElement>(null)
   const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)")
   const [inView, setInView] = useState(false)
   const [documentVisible, setDocumentVisible] = useState(false)

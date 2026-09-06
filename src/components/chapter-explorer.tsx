@@ -4,8 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { chapters } from "@/content/chapters"
 import { useChapterPlayback } from "@/hooks/use-chapter-playback"
 import { useMediaQuery } from "@/hooks/use-media-query"
-import { FeatureDetails } from "@/components/feature-details"
-import { FeaturePlaceholder } from "@/components/feature-placeholder"
+import { ChapterReader } from "@/components/chapter-reader"
 
 export function ChapterExplorer() {
   const { stageRef, state, pause, play, select, progress } = useChapterPlayback(
@@ -17,7 +16,6 @@ export function ChapterExplorer() {
   return (
     <section
       id="explore"
-      ref={stageRef}
       className="chapter-section border-y border-border"
       aria-label="Explore key"
       aria-roledescription="carousel"
@@ -35,7 +33,7 @@ export function ChapterExplorer() {
         }
         className="chapter-layout"
       >
-        <div className="chapter-rail">
+        <div className="chapter-rail" ref={stageRef}>
           <TabsList
             activateOnFocus
             variant="line"
@@ -86,35 +84,20 @@ export function ChapterExplorer() {
             </span>
           </div>
         </div>
-        <div
-          className="chapter-stage"
-          aria-live={state.paused ? "polite" : "off"}
-        >
+        <div className="chapter-stage">
           {chapters.map((chapter) => (
             <TabsContent
               key={chapter.id}
               value={chapter.id}
               className="chapter-panel"
             >
-              <div className="chapter-heading">
-                <p className="eyebrow text-muted-foreground">
-                  {chapter.number} / {chapter.label}
-                </p>
-                <h2 className="chapter-title">{chapter.title}</h2>
-                <p className="chapter-description text-muted-foreground">
-                  {chapter.description}
-                </p>
-              </div>
-              <FeaturePlaceholder chapter={chapter} />
-              <div className="chapter-footer flex items-center justify-between gap-6 border-t border-border">
-                <FeatureDetails chapter={chapter} onOpen={pause} />
-                <span
-                  className="desktop-page-count eyebrow shrink-0 text-muted-foreground"
-                  aria-hidden="true"
-                >
-                  {chapter.number} / 04
-                </span>
-              </div>
+              {current.id === chapter.id && (
+                <ChapterReader
+                  chapter={chapter}
+                  compact={compact}
+                  onRead={pause}
+                />
+              )}
             </TabsContent>
           ))}
         </div>

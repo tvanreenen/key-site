@@ -1,8 +1,8 @@
 # Go deeper content
 
-The four dialogs explain the CLI workflow, device-enrolled authentication, verified folder synchronization, and device continuity. The writing names mechanisms, explains their consequences, and states the limits that matter to the reader. The feature demonstrations outside the dialogs remain placeholders.
+The four inline articles explain the CLI workflow, device-enrolled authentication, verified folder synchronization, and device continuity. The writing names mechanisms, explains their consequences, and states the limits that matter to the reader. The feature demonstrations above the articles remain placeholders.
 
-Copy lives in `src/content/chapter-details.ts`. `src/components/feature-details.tsx` supplies the shared reading layout. The close control stays visible while the article scrolls; the scroll region is keyboard-focusable. Keep the introductory description short because it is also the dialog's accessible description.
+Copy lives in `src/content/chapter-details.ts`. `src/components/feature-details.tsx` renders the shared article content; `src/components/chapter-reader.tsx` owns the overview, reading layout, focus, and scroll navigation. Desktop uses shadcn Scroll Area, while mobile uses document scrolling. The article stays available below the overview, with a sticky Back to overview control. Go deeper moves focus to the article heading and scrolls its start into view. Both controls respect reduced motion. Reading pauses automatic playback, and changing chapters mounts a fresh overview.
 
 ## Evidence reviewed
 
@@ -61,9 +61,9 @@ Authentication, synchronization, and continuity copy describes device-enrolled v
 
 ## Site verification
 
-- Production build, TypeScript, Oxlint, formatting, and all 13 Vitest tests pass.
-- The existing accessibility test now checks the page and all four open dialogs with axe. Geometry and color contrast are excluded from that jsdom check.
-- The production preview was inspected at desktop, 390px, and 320px widths. The articles fit without horizontal overflow, code wraps on narrow screens, and the close control stays visible while reading.
-- Keyboard scrolling reaches the end of the articles; Escape and trigger-focus restoration remain covered by the interaction tests.
+- Production build, TypeScript, Oxlint, formatting, and all 15 Vitest tests pass.
+- The existing accessibility test now checks the page and all four inline articles with axe. Geometry and color contrast are excluded from that jsdom check.
+- The production preview was inspected at desktop, 390px, and 320px widths. The articles fit without horizontal overflow, code wraps on narrow screens, and the return control stays visible while reading.
+- Keyboard scrolling reaches the end of the articles; jump and return focus, direct-scroll pausing, chapter reset, and reduced-motion navigation are covered by interaction tests.
 
 These checks do not constitute a screen-reader certification or execution of the product's cryptographic and recovery tests. No deployment was performed.

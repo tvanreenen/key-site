@@ -26,8 +26,8 @@ describe("playback browser lifecycle", () => {
     })
     vi.stubGlobal("cancelAnimationFrame", cancel)
     const browser = installBrowserEnvironment()
-    const stage = document.createElement("section")
-    // Attach the real hook ref before effects, as React does for the section.
+    const stage = document.createElement("div")
+    // Attach the real hook ref before effects, as React does for the chapter rail.
     const { result, unmount } = renderHook(() => {
       const playback = useChapterPlayback(4)
       Object.assign(playback.stageRef, { current: stage })

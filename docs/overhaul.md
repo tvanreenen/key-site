@@ -8,11 +8,11 @@ Implement the approved Soft focus concept: a dark Touch ID photographic hero,
 large white typography, the macOS / CLI / Open Source eyebrow, and the headline
 “Your secrets. Your Mac. Your CLI.” Below the hero, build four selectable,
 automatically cycling chapters: Use, Authenticate, Sync, Recover. Feature
-demonstrations remain explicit placeholders. The Go deeper dialogs now contain
+demonstrations remain explicit placeholders. The inline Go deeper articles contain
 source-grounded technical explanations; see `docs/chapter-content.md`.
 
 Include working install links, chapter progress and playback controls, a
-consistent detail dialog, responsive layouts, and accessible keyboard behavior.
+consistent inline reader, responsive layouts, and accessible keyboard behavior.
 
 ## Foundation
 
@@ -32,13 +32,15 @@ interactive chapters, keyboard navigation, and future content changes.
 ## Interaction contract
 
 - The hero does not change with chapter selection.
-- Automatic playback starts only when the chapter stage is visible.
-- Tab selection, keyboard focus, and opening a dialog pause playback.
-- Explicit Play resumes playback; closing a dialog never resumes it.
+- Automatic playback starts only when the chapter rail is visible.
+- Tab selection, keyboard focus, and scrolling into an article pause playback.
+- Explicit Play resumes playback; returning to the overview never resumes it.
 - An offscreen stage or hidden document suspends the clock without catch-up.
 - Reduced motion defaults to paused and suppresses decorative animation.
 - Tab semantics and orientation match the desktop and mobile presentation.
-- Detail dialogs retain focus, close with Escape, and restore trigger focus.
+- Articles follow each overview. Go deeper and Back to overview scroll and focus
+  their destinations, with instant scrolling for reduced motion. Desktop uses
+  Scroll Area; mobile uses document scrolling. Each chapter starts at its overview.
 - Placeholders are identified as unfinished content, not indefinite loading.
 
 ## Sources checked on 2026-09-06
@@ -103,3 +105,17 @@ matrix. Reduced motion and visibility are driven through DOM-environment tests;
 OS-level motion settings were not changed. Feature artwork and demonstrations remain placeholders by design. The deeper
 editorial content was added in the subsequent content pass. No push or deployment
 has been performed.
+
+## Inline reader follow-up
+
+The modal articles have been replaced with continuous chapter documents. The
+Base Nova Scroll Area was added through the official shadcn CLI, with viewport
+props exposed for the chapter composition. The reader owns scroll navigation and
+focus; the existing playback hook remains the clock owner. Visibility observes
+the chapter rail so a long mobile article does not dilute the visibility ratio.
+
+The updated suite has 15 passing tests, including all four inline articles under
+axe, direct-scroll pausing, fresh chapter surfaces, and desktop/mobile focus
+navigation with reduced motion. Native scrolling, sticky return navigation,
+article positioning, and responsive overflow are checked in the production
+browser separately from the DOM tests. No deployment has been performed.

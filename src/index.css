@@ -316,10 +316,13 @@ a.text-link[href^="#"]:hover svg {
   min-width: 0;
 }
 .chapter-panel {
+  min-width: 0;
+}
+.chapter-overview {
   display: flex;
   flex-direction: column;
   gap: 34px;
-  min-height: 690px;
+  min-height: var(--reader-height);
   padding: 57px var(--page-gutter) 39px clamp(36px, 4.3vw, 76px);
 }
 .chapter-panel[hidden] {
@@ -363,7 +366,8 @@ a.text-link[href^="#"]:hover svg {
   padding-top: 23px;
 }
 .detail-trigger,
-.playback-toggle {
+.playback-toggle,
+.reading-back {
   position: relative;
   isolation: isolate;
   background: transparent;
@@ -372,7 +376,8 @@ a.text-link[href^="#"]:hover svg {
   min-height: 64px;
 }
 .detail-trigger::before,
-.playback-toggle::before {
+.playback-toggle::before,
+.reading-back::before {
   content: "";
   position: absolute;
   z-index: -1;
@@ -391,57 +396,72 @@ a.text-link[href^="#"]:hover svg {
 .detail-trigger:hover::before,
 .detail-trigger:focus-visible::before,
 .playback-toggle:hover::before,
-.playback-toggle:focus-visible::before {
+.playback-toggle:focus-visible::before,
+.reading-back:hover::before,
+.reading-back:focus-visible::before {
   opacity: 1;
 }
 .detail-trigger:hover .text-link svg {
-  transform: rotate(90deg);
+  transform: translateY(3px);
 }
 .detail-trigger .text-link svg {
   transition: transform 220ms ease;
 }
 
-.reading-dialog {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  width: calc(100% - 64px);
-  height: min(880px, calc(100dvh - 64px));
-  max-width: 940px;
-  min-height: min(640px, calc(100dvh - 64px));
-  max-height: calc(100dvh - 64px);
-  overflow: hidden;
-  padding: 0;
-  border: 1px solid var(--border);
-  border-radius: 2px;
-  box-shadow: 0 32px 120px #0009;
+/* The overview and article share a native scrolling surface on desktop. */
+.chapter-stage {
+  --reader-height: clamp(560px, calc(100svh - 64px), 690px);
+  --reader-gutter: clamp(36px, 4.3vw, 76px);
 }
-[data-slot="dialog-overlay"] {
-  background: #0009;
-  backdrop-filter: blur(12px);
+.chapter-reader {
+  height: var(--reader-height);
 }
-.detail-title {
-  max-width: 14ch;
-  font-size: clamp(40px, 5vw, 64px);
-  font-weight: 680;
-  line-height: 1.04;
-  letter-spacing: -0.055em;
+.chapter-reader::after {
+  content: "";
+  position: absolute;
+  inset: auto 12px 0 0;
+  height: 20px;
+  background: linear-gradient(transparent, #101011);
+  pointer-events: none;
+  opacity: 0;
+}
+.chapter-reader[data-overflow-y-end]::after {
+  opacity: 1;
+}
+.chapter-reader [data-slot="scroll-area-viewport"] {
+  overscroll-behavior-y: auto;
+}
+.chapter-article {
+  border-top: 1px solid var(--border);
 }
 .reading-toolbar {
-  flex-shrink: 0;
-  padding: 24px 60px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 72px;
+  padding: 14px var(--page-gutter) 14px var(--reader-gutter);
+  background: #101011f5;
+  border-bottom: 1px solid var(--border);
 }
-.detail-scroll {
-  min-height: 0;
-  flex: 1;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  padding: 12px 60px 48px;
-  scrollbar-gutter: stable;
+.detail-copy {
+  padding: 32px var(--page-gutter) 56px var(--reader-gutter);
 }
-.detail-scroll:focus-visible {
+.detail-title {
+  max-width: 23ch;
+  margin-bottom: 24px;
+  font-size: clamp(28px, 3vw, 42px);
+  line-height: 1.12;
+  font-weight: 650;
+  letter-spacing: -0.045em;
+}
+.chapter-title:focus-visible,
+.detail-title:focus-visible {
   outline: 2px solid var(--ring);
-  outline-offset: -2px;
+  outline-offset: 8px;
 }
 .detail-intro {
   max-width: 65ch;
@@ -457,7 +477,7 @@ a.text-link[href^="#"]:hover svg {
 .detail-section {
   margin-top: 40px;
 }
-.detail-section h3 {
+.detail-section h4 {
   max-width: 32ch;
   font-size: 24px;
   font-weight: 580;
@@ -692,7 +712,7 @@ a.text-link[href^="#"]:hover svg {
   .desktop-page-count {
     display: none;
   }
-  .chapter-panel {
+  .chapter-overview {
     min-height: 620px;
     padding: 34px 24px 28px;
     gap: 28px;
@@ -725,28 +745,18 @@ a.text-link[href^="#"]:hover svg {
   .detail-trigger > span > span:last-child {
     font-size: 12px;
   }
-  .reading-dialog {
-    position: fixed;
-    inset: 0;
-    --tw-translate-x: 0px;
-    --tw-translate-y: 0px;
-    transform: none;
-    translate: none;
-    width: 100%;
-    max-width: none;
-    height: 100dvh;
-    min-height: 100dvh;
-    max-height: 100dvh;
-    padding: 0;
-    border: none;
-    border-radius: 0;
-    gap: 0;
+  .chapter-stage {
+    --reader-gutter: 24px;
   }
   .reading-toolbar {
-    padding: max(16px, env(safe-area-inset-top)) 24px 16px;
+    padding: 10px 24px;
+    min-height: 64px;
   }
-  .detail-scroll {
-    padding: 12px 24px max(32px, env(safe-area-inset-bottom));
+  .reading-toolbar .eyebrow {
+    display: none;
+  }
+  .detail-copy {
+    padding: 28px 24px 48px;
   }
   .detail-intro {
     font-size: 16px;
@@ -754,7 +764,7 @@ a.text-link[href^="#"]:hover svg {
   .detail-body {
     font-size: 15px;
   }
-  .detail-section h3 {
+  .detail-section h4 {
     font-size: 22px;
   }
   .detail-code {
@@ -762,7 +772,7 @@ a.text-link[href^="#"]:hover svg {
     font-size: 12px;
   }
   .detail-title {
-    font-size: 44px;
+    font-size: 30px;
   }
   .install-section {
     grid-template-columns: 1fr;

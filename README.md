@@ -4,7 +4,7 @@ A static marketing page built with React, Tailwind CSS, and shadcn components
 backed by Base UI. The visual design follows the approved dark Touch ID concept.
 
 This overhaul lives on `codex/marketing-overhaul`. Keep it local until approved.
-The four chapter demonstrations remain placeholders. The Go deeper dialogs
+The four chapter demonstrations remain placeholders. The inline Go deeper articles
 contain technical explanations grounded in the current Key implementation.
 
 ## Local development
@@ -31,23 +31,23 @@ Canonical and social URLs in `index.html` continue to target `key.tvr.works`.
 
 ## Editing the page
 
-| Change                                                        | Location                                   |
-| ------------------------------------------------------------- | ------------------------------------------ |
-| Chapter labels, headlines, summaries, links, install commands | `src/content/chapters.ts`                  |
-| Hero copy and image composition                               | `src/components/hero.tsx`, `src/index.css` |
-| Colors, type, spacing, responsive layouts                     | `src/index.css`                            |
-| Feature demonstrations                                        | `src/components/feature-placeholder.tsx`   |
-| Deeper chapter content                                        | `src/content/chapter-details.ts`           |
-| Detail dialog layout                                          | `src/components/feature-details.tsx`       |
-| Chapter duration and state transitions                        | `src/lib/playback.ts`                      |
-| Visibility and reduced-motion playback behavior               | `src/hooks/use-chapter-playback.ts`        |
-| Static HTML and social metadata                               | `index.html`, `scripts/prerender.mjs`      |
+| Change                                                        | Location                                                                  |
+| ------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| Chapter labels, headlines, summaries, links, install commands | `src/content/chapters.ts`                                                 |
+| Hero copy and image composition                               | `src/components/hero.tsx`, `src/index.css`                                |
+| Colors, type, spacing, responsive layouts                     | `src/index.css`                                                           |
+| Feature demonstrations                                        | `src/components/feature-placeholder.tsx`                                  |
+| Deeper chapter content                                        | `src/content/chapter-details.ts`                                          |
+| Inline reading and scroll navigation                          | `src/components/chapter-reader.tsx`, `src/components/feature-details.tsx` |
+| Chapter duration and state transitions                        | `src/lib/playback.ts`                                                     |
+| Visibility and reduced-motion playback behavior               | `src/hooks/use-chapter-playback.ts`                                       |
+| Static HTML and social metadata                               | `index.html`, `scripts/prerender.mjs`                                     |
 
 Replace the demonstration placeholders one chapter at a time. Update the
 technical copy against the evidence and release boundaries in
 `docs/chapter-content.md`. Keep
 chapter IDs stable. The hero is independent of selection, and each chapter uses
-the same panel and detail-dialog composition. PIV recovery is still planned:
+the same overview and inline-article composition. PIV recovery is still planned:
 review product claims against the actual key release before publishing.
 
 The approved photographic source is `assets/source/touch-id.png`. Run
@@ -58,7 +58,7 @@ The generation brief is in `docs/hero-asset.md`. Earlier assets remain under
 ## Component foundation
 
 The official shadcn Vite scaffold used `--base base --preset nova`. Its
-`base-nova` registry supplied Button, Tabs, Dialog, and Skeleton. Shared primitive
+`base-nova` registry supplied Button, Tabs, Dialog, Skeleton, and Scroll Area. Shared primitive
 files live in `src/components/ui`; branded compositions live alongside them.
 
 Add future components with the official CLI:
@@ -69,8 +69,9 @@ npx shadcn@latest add <component>
 
 Review generated changes, especially if overwriting existing primitives. The
 Tabs wrapper forwards `orientation` to Base UI as well as its data attribute so
-the keyboard direction matches the responsive layout. The mobile detail dialog
-also resets Tailwind translation variables used by the registry's animations.
+the keyboard direction matches the responsive layout. The Scroll Area wrapper exposes viewport props for scrolling and focus. Desktop
+chapters share a contained overview/article surface; mobile articles use document
+scrolling. The chapter rail supplies playback visibility independently of article length.
 
 Dependencies are pinned to current stable releases as of September 6, 2026.
 Oxlint provides React, TypeScript, and accessibility linting. The scaffold's
@@ -87,7 +88,7 @@ npm run build
 ```
 
 The tests cover playback transitions, browser visibility signals, reduced-motion
-startup, responsive keyboard navigation, dialog focus restoration, clipboard
+startup, responsive keyboard navigation, inline reading focus and scroll navigation, clipboard
 success/failure, and automated accessibility rules. DOM tests use jsdom; they do
 not prove rendered layout, color contrast, or assistive-technology behavior.
 See `docs/overhaul.md` for the browser review and remaining verification limits.
