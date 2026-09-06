@@ -110,16 +110,14 @@ keeping Play and Go deeper aligned.
 
 ## Authentication overview
 
-`AuthenticateDemo` replaces the authentication placeholder with three manual
-views: Touch ID, Apple Watch, and password. The illustrations are inline SVGs
-with a shared monochrome treatment; there are no image assets, credential inputs,
-OS authentication calls, or independent playback timers. Selection pauses chapter
-playback and uses the existing demo controls and reduced-motion transition rules.
-The selected explanation is announced through a polite live region.
+`AuthenticateDemo` shows Touch ID, Apple Watch, and password together in one
+surface. The caption explains that macOS can prompt Touch ID and Apple Watch
+at the same time, with either method approving the request and the Mac password
+as an alternative. This is a simultaneous choice, not a sequence of steps.
 
-Copy describes alternative methods within macOS authentication, with Watch
-availability conditional on macOS offering it. The double-click gesture was
-checked against [Apple’s Watch approval guidance](https://support.apple.com/en-us/102442).
-The protected-key policy and device dependencies remain grounded in the product
-sources recorded above. The views illustrate the methods rather than reproducing
-a system prompt.
+The illustrations are inline SVGs with a shared monochrome treatment. There are
+no scene selectors, credential inputs, OS authentication calls, live announcements,
+or independent playback timers. All three methods remain visible on mobile.
+Protected-key policy and device dependencies remain grounded in the product
+sources recorded above. This illustrates available authentication methods rather
+than reproducing a system prompt.

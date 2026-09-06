@@ -79,7 +79,7 @@ export function ChapterReader({
         {chapter.id === "use" ? (
           <UseDemo onInteract={onRead} />
         ) : chapter.id === "authenticate" ? (
-          <AuthenticateDemo onInteract={onRead} />
+          <AuthenticateDemo />
         ) : (
           <FeaturePlaceholder chapter={chapter} />
         )}

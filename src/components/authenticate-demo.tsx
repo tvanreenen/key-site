@@ -1,12 +1,10 @@
-import { useId, useState } from "react"
-import { Button } from "@/components/ui/button"
 import {
   authenticationMethods,
   type AuthenticationMethod,
 } from "@/content/authentication-demo"
 
 // Illustrations share a coordinate system and stroke treatment. They are not
-// OS controls: selecting a view never requests credentials or authentication.
+// OS controls and never request credentials or authentication.
 function AuthenticationArtwork({ method }: { method: AuthenticationMethod }) {
   return (
     <svg
@@ -87,43 +85,26 @@ function AuthenticationArtwork({ method }: { method: AuthenticationMethod }) {
   )
 }
 
-export function AuthenticateDemo({ onInteract }: { onInteract: () => void }) {
-  const [index, setIndex] = useState(0)
-  const sceneId = useId()
-  const method = authenticationMethods[index]
-
+export function AuthenticateDemo() {
   return (
-    <figure className="auth-demo" aria-label="Mac authentication walkthrough">
-      <div className="demo-terminal">
-        <div id={sceneId} aria-live="polite" aria-atomic="true">
-          <div className="auth-scene demo-scene" key={method.id}>
-            <AuthenticationArtwork method={method.id} />
-            <div className="auth-explanation">
-              <h3>{method.title}</h3>
-              <p>{method.explanation}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <fieldset className="demo-steps auth-methods">
-        <legend className="sr-only">Authentication examples</legend>
-        {authenticationMethods.map((item, methodIndex) => (
-          <Button
-            key={item.id}
-            variant="ghost"
-            className="demo-step"
-            aria-pressed={index === methodIndex}
-            aria-controls={sceneId}
-            aria-label={`Show ${item.label} authentication`}
-            onClick={() => {
-              setIndex(methodIndex)
-              onInteract()
-            }}
-          >
-            {item.label}
-          </Button>
-        ))}
-      </fieldset>
-    </figure>
+    <div className="auth-demo">
+      <figure
+        className="demo-terminal auth-surface"
+        aria-label="Ways to approve the same macOS request"
+      >
+        <ul className="auth-options">
+          {authenticationMethods.map((method) => (
+            <li key={method.id}>
+              <AuthenticationArtwork method={method.id} />
+              <span className="auth-method-label">{method.label}</span>
+            </li>
+          ))}
+        </ul>
+        <figcaption className="auth-caption">
+          macOS can prompt Touch ID and Apple Watch together. Approve with
+          either, or use your Mac password.
+        </figcaption>
+      </figure>
+    </div>
   )
 }

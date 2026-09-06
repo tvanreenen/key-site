@@ -469,25 +469,45 @@ a.text-link[href^="#"]:hover svg {
     font-size: 11px;
   }
 }
-/* Authentication uses the same surface and manual controls as the CLI demo. */
+/* One macOS request, with its available approval methods visible together. */
 .auth-demo {
   min-width: 0;
   margin: 0;
   container-type: inline-size;
 }
-.auth-scene {
+.auth-surface {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+  min-height: 293px;
+  padding: 28px;
+}
+.auth-options {
   display: grid;
-  grid-template-columns: minmax(130px, 0.8fr) minmax(0, 1.4fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.auth-options li {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 28px;
-  height: 244px;
-  padding: 28px 36px 28px 24px;
+  gap: 10px;
 }
 .auth-artwork {
   width: 100%;
-  max-width: 180px;
-  justify-self: center;
+  max-width: 150px;
+  height: 112px;
   color: #d2d2d4;
+}
+.auth-method-label {
+  color: #e3e3e5;
+  font-size: 14px;
+  line-height: 1.5;
 }
 .auth-metal {
   fill: #1b1b1d;
@@ -505,58 +525,42 @@ a.text-link[href^="#"]:hover svg {
 .auth-watch-signal {
   stroke: #8b8b8e;
 }
-.auth-explanation h3 {
-  max-width: 20ch;
-  font-size: clamp(20px, 3cqi, 25px);
-  line-height: 1.2;
-  letter-spacing: -0.035em;
-  font-weight: 550;
-}
-.auth-explanation p {
-  max-width: 37ch;
-  margin-top: 14px;
+.auth-caption {
+  max-width: 55ch;
+  align-self: center;
   color: #b9b9bc;
   font-size: 15px;
   line-height: 1.7;
-}
-.auth-methods {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  text-align: center;
+  text-wrap: pretty;
 }
 @container (max-width: 540px) {
-  .auth-scene {
-    grid-template-columns: 96px minmax(0, 1fr);
-    gap: 20px;
-    height: 272px;
+  .auth-surface {
     padding: 24px 20px;
   }
-  .auth-explanation p {
-    font-size: 14px;
+  .auth-artwork {
+    height: 96px;
   }
-  .auth-methods .demo-step {
-    justify-content: center;
+  .auth-caption {
+    font-size: 14px;
   }
 }
 @container (max-width: 360px) {
-  .auth-scene {
-    grid-template-columns: 1fr;
-    grid-template-rows: 86px auto;
-    align-content: center;
-    gap: 14px;
-    padding: 20px;
+  .auth-surface {
+    gap: 22px;
+    min-height: 272px;
+    padding: 24px 16px;
+  }
+  .auth-options {
+    gap: 10px;
   }
   .auth-artwork {
-    width: 96px;
-    height: 96px;
+    height: 74px;
   }
-  .auth-artwork-password {
-    width: 156px;
+  .auth-method-label {
+    font-size: 11px;
   }
-  .auth-explanation h3 {
-    max-width: none;
-    font-size: 18px;
-  }
-  .auth-explanation p {
-    margin-top: 10px;
+  .auth-caption {
     font-size: 13px;
     line-height: 1.6;
   }
