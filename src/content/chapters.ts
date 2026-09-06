@@ -20,9 +20,9 @@ export const chapters = [
     id: "sync",
     number: "03",
     label: "Sync",
-    title: "Your folder. Your choice.",
+    title: "Safe sync.\nYour choice of provider.",
     description:
-      "Your file sync provider moves encrypted files. Key controls access and verifies every change.",
+      "Keep one vault across your Macs, through a sync folder you choose.",
     detail: "History, conflicts, and checkpoints",
   },
   {

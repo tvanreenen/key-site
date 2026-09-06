@@ -125,16 +125,37 @@ than reproducing a system prompt.
 
 ## Sync overview
 
-`SyncDemo` presents delivery order and verified history together in a static
-figure. Numbered encrypted files illustrate out-of-order delivery (03, 01, 02);
-connected checkpoints illustrate history order after verification (01, 02, 03).
-These numbers are explanatory labels, not actual file names or an on-disk schema.
-The middle names authentication and history verification, so the diagram does
-not present sync as merely sorting files. The caption explicitly states that
-missing or conflicting data pauses progress; it does not imply automatic merging.
+The Sync overview leads with “Safe sync. Your choice of provider.” and explains
+one vault across multiple Macs. `SyncDemo` shows one Mac publishing through a
+shared folder to two independently verifying Macs. The folder contains a sequence
+of manifest states: backward arrows represent parent-hash references, and downward
+links identify the encrypted entries referenced by each state. Numbers 01–03 are
+illustrative state labels, not filenames or the storage schema. Each receiving
+Mac has its own local checkpoint; the diagram does not imply a central server
+or a distinguished primary device. It depicts one publication, and any active
+enrolled Mac can publish changes.
 
-The diagram uses the existing demo surface and monochrome palette. Its caption
-provides the meaning in accessible text; decorative file and checkpoint graphics
-are hidden from assistive technology. There are no extra controls or animation
-timers. Desktop, tablet, and 320px mobile layouts were inspected. The automated
-page accessibility check includes this overview and its existing article.
+The summary names SHA-256 references, authenticated records, exact entry
+verification, and local checkpoint advancement. A missing file delays acceptance;
+altered entries and competing histories stop advancement. This remains scoped to
+the device-enrolled implementation and does not promise automatic conflict merging.
+Source tracing confirmed these mechanisms at product commit
+`2adba7de353acce68f5a3a0303259cba25d851f5`:
+
+- `V3DeviceWrappedManifestCandidateBuilder.swift`: the parent envelope digest and
+  entry inventory are covered by HMAC authentication.
+- `V3DeviceWrappedSameEpochCatchUpService.swift`: verify the direct parent,
+  authentication, unchanged device authority, and the complete referenced snapshot
+  before conditionally replacing the checkpoint.
+- `V3DeviceWrappedReadOnlyVaultRuntime.swift`: the snapshot validator checks exact
+  entry bytes, structure, and authenticated metadata against manifest references.
+- `V3EntryCipher.swift`: verify the expected digest and context, then authenticate
+  and decrypt the entry with AES-256-GCM before releasing plaintext.
+
+The network folds into a vertical arrangement at narrow container widths. Sync
+has additional reading-pane height for its diagram and summary, with the same
+bottom inset for Go deeper and Play. Other chapters retain their existing height.
+The caption conveys the diagram’s meaning in accessible text; decorative graphics
+are hidden from assistive technology. No additional controls or animation timers
+are introduced. The existing automated page accessibility check covers the new
+figure and the unchanged technical article.
