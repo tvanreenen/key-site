@@ -2,13 +2,12 @@
 
 ## Scope
 
-Local work on `codex/marketing-overhaul`. Do not push or deploy before approval.
+Implementation on `codex/marketing-overhaul`. Publishing the branch and draft PR is approved; deployment remains separate.
 
 Implement the approved Soft focus concept: a dark Touch ID photographic hero,
 large white typography, the macOS / CLI / Open Source eyebrow, and the headline
-“Your secrets. Your Mac. Your CLI.” Below the hero, build four selectable,
-automatically cycling chapters: Use, Authenticate, Sync, Recover. Feature
-demonstrations remain explicit placeholders. The inline Go deeper articles contain
+“Your Mac. Your CLI. Your secrets.” Below the hero, build four selectable,
+automatically cycling chapters: Use, Authenticate, Sync, Recover. Each chapter has a completed overview illustration or command walkthrough. The inline Go deeper articles contain
 source-grounded technical explanations; see `docs/chapter-content.md`.
 
 Include working install links, chapter progress and playback controls, a
@@ -41,7 +40,7 @@ interactive chapters, keyboard navigation, and future content changes.
 - Articles follow each overview. Go deeper and Back to overview scroll and focus
   their destinations, with instant scrolling for reduced motion. Desktop uses
   Scroll Area; mobile uses document scrolling. Each chapter starts at its overview.
-- Placeholders are identified as unfinished content, not indefinite loading.
+- PIV hardware recovery is identified as planned; other demonstrations describe the inspected device-enrolled implementation.
 
 ## Sources checked on 2026-09-06
 
@@ -79,7 +78,7 @@ Additional primary references:
 - https://www.w3.org/WAI/ARIA/apg/patterns/carousel/
 - https://oxc.rs/docs/guide/usage/linter.html
 
-## Verification on September 6, 2026
+## Initial scaffold verification on September 6, 2026
 
 - TypeScript, Oxlint, production build, and 13 Vitest tests pass.
 - Tests exercise actual Base UI components for horizontal/vertical arrow-key
@@ -119,3 +118,7 @@ axe, direct-scroll pausing, fresh chapter surfaces, and desktop/mobile focus
 navigation with reduced motion. Native scrolling, sticky return navigation,
 article positioning, and responsive overflow are checked in the production
 browser separately from the DOM tests. No deployment has been performed.
+
+## Final branch verification
+
+All four overview visuals and inline articles are implemented. The final branch passes the production build (including TypeScript and prerendering), Oxlint, and all 17 Vitest tests. The current accessibility test covers every chapter and command example; dialog checks above refer to the superseded scaffold. Desktop and narrow mobile layouts were inspected during implementation, including Sync and Recover. The same screen-reader and cross-browser limits apply. Deployment has not been performed.

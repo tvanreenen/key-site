@@ -1,6 +1,6 @@
 # Go deeper content
 
-The four inline articles explain the CLI workflow, device-enrolled authentication, verified folder synchronization, and device continuity. The writing names mechanisms, explains their consequences, and states the limits that matter to the reader. The Use overview now provides a command walkthrough; the other chapter demonstrations remain placeholders.
+The four inline articles explain the CLI workflow, device-enrolled authentication, verified folder synchronization, and device continuity. The writing names mechanisms, explains their consequences, and states the limits that matter to the reader. Use provides a command walkthrough; Authenticate, Sync, and Recover use explanatory illustrations.
 
 Copy lives in `src/content/chapter-details.ts`. `src/components/feature-details.tsx` renders the shared article content; `src/components/chapter-reader.tsx` owns the overview, reading layout, focus, and scroll navigation. Desktop uses shadcn Scroll Area, while mobile uses document scrolling. The article stays available below the overview, with a sticky Back to overview control. Go deeper moves focus to the article heading and scrolls its start into view. Both controls respect reduced motion. Reading pauses automatic playback, and changing chapters mounts a fresh overview.
 

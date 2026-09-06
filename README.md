@@ -3,9 +3,9 @@
 A static marketing page built with React, Tailwind CSS, and shadcn components
 backed by Base UI. The visual design follows the approved dark Touch ID concept.
 
-This overhaul lives on `codex/marketing-overhaul`. Keep it local until approved.
-Use has a command walkthrough; the other three chapter visuals remain placeholders. The inline Go deeper articles
-contain technical explanations grounded in the current Key implementation.
+The four chapters cover everyday commands, Mac authentication, verified folder
+sync, and recovery. Each has an overview illustration or walkthrough and an inline
+Go deeper article grounded in the Key implementation.
 
 ## Local development
 
@@ -36,17 +36,15 @@ Canonical and social URLs in `index.html` continue to target `key.tvr.works`.
 | Chapter labels, headlines, summaries, links, install commands | `src/content/chapters.ts`                                                 |
 | Hero copy and image composition                               | `src/components/hero.tsx`, `src/index.css`                                |
 | Colors, type, spacing, responsive layouts                     | `src/index.css`                                                           |
-| Feature demonstrations                                        | `src/components/use-demo.tsx`, `src/components/feature-placeholder.tsx`   |
+| Feature demonstrations                                        | `src/components/{use,authenticate,sync,recover}-demo.tsx`                 |
 | Deeper chapter content                                        | `src/content/chapter-details.ts`                                          |
 | Inline reading and scroll navigation                          | `src/components/chapter-reader.tsx`, `src/components/feature-details.tsx` |
 | Chapter duration and state transitions                        | `src/lib/playback.ts`                                                     |
 | Visibility and reduced-motion playback behavior               | `src/hooks/use-chapter-playback.ts`                                       |
 | Static HTML and social metadata                               | `index.html`, `scripts/prerender.mjs`                                     |
 
-Replace the demonstration placeholders one chapter at a time. Update the
-technical copy against the evidence and release boundaries in
-`docs/chapter-content.md`. Keep
-chapter IDs stable. The hero is independent of selection, and each chapter uses
+Update the technical copy against the evidence and release boundaries in
+`docs/chapter-content.md`. Keep chapter IDs stable. The hero is independent of selection, and each chapter uses
 the same overview and inline-article composition. PIV recovery is still planned:
 review product claims against the actual key release before publishing.
 
