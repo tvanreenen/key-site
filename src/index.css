@@ -491,9 +491,7 @@ a.text-link[href^="#"]:hover svg {
   min-height: 44px;
 }
 .detail-trigger::before,
-.playback-toggle::before,
-.reading-back::before,
-.demo-step::before {
+.reading-back::before {
   content: "";
   position: absolute;
   z-index: -1;
@@ -511,12 +509,8 @@ a.text-link[href^="#"]:hover svg {
 }
 .detail-trigger:hover::before,
 .detail-trigger:focus-visible::before,
-.playback-toggle:hover::before,
-.playback-toggle:focus-visible::before,
 .reading-back:hover::before,
-.reading-back:focus-visible::before,
-.demo-step:hover::before,
-.demo-step:focus-visible::before {
+.reading-back:focus-visible::before {
   opacity: 1;
 }
 .detail-trigger:hover .text-link svg {
