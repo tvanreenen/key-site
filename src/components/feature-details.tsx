@@ -73,16 +73,6 @@ export function FeatureDetails({
           <Skeleton className="h-3 w-5/6 animate-none rounded-none bg-white/5" />
           <Skeleton className="mt-10 h-32 w-full animate-none rounded-none bg-white/4" />
         </div>
-        <DialogClose
-          render={
-            <Button
-              variant="link"
-              className="mt-auto h-11 w-fit rounded-none px-0 text-base"
-            />
-          }
-        >
-          Back to {chapter.label.toLowerCase()}
-        </DialogClose>
       </DialogContent>
     </Dialog>
   )
